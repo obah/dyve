@@ -44,7 +44,7 @@ const QuickGuide = () => {
                         </p>
                         
                         <p className="text-white-4 font-normal text-xl" >
-                            Click on the "Sign Up" button to create a new account. 
+                            Click on the &quot;Sign Up&quot; button to create a new account. 
                             Fill in your personal information and choose a secure 
                             password. Verify your email to complete the registration process.
                         </p>

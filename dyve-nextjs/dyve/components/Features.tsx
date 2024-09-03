@@ -64,6 +64,7 @@ const Features = () => {
                     {
                         listA.map((cur:any, idx:number) => (
                             <FeaturesCard 
+                                key={idx}
                                 data={cur}
                                 idx={idx}
                             />
@@ -77,6 +78,7 @@ const Features = () => {
                     {
                         listB.map((cur:any, idx:number) => (
                             <FeaturesCard 
+                                key={idx}
                                 data={cur}
                                 idx={idx}
                             />
