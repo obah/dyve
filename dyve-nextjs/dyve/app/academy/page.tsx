@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <main className="container mx-auto mb-40 mt-[90px] scroll-smooth text-white">
+    <main className="container mx-auto mb-40 mt-10 scroll-smooth text-white">
       <section className="grid grid-cols-2 items-center px-20 text-[#CBCBCB]">
         <div className="space-y-9">
           <h1 className="text-[64px] font-bold leading-[77px]">
