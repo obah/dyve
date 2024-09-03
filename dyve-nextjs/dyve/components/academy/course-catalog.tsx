@@ -1,7 +1,8 @@
 import { CatalogItem } from "@/lib/types";
 import { CatalogWrapper } from "../catalog-wrapper";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
+import Link from "next/link";
 
 interface Props {
   data: CatalogItem[];
@@ -29,7 +30,12 @@ export function CourseCatalog({ data }: Props) {
             </p>
           </div>
 
-          <Button size={"sm"}>Enroll Now</Button>
+          <Link
+            href={`/academy/course-page/${item.id}`}
+            className={buttonVariants({ variant: "default", size: "sm" })}
+          >
+            Enroll Now
+          </Link>
         </CatalogWrapper>
       ))}
     </div>

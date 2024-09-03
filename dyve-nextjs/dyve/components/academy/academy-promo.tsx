@@ -16,7 +16,7 @@ export function AcademyPromo() {
         </ul>
 
         <Link
-          href={"/"}
+          href={"/academy/course-page/1"}
           className="inline-block rounded-r1 bg-[#2D2D2D] px-[30px] py-[15px] text-base font-medium text-white hover:bg-purple-2"
         >
           START TODAY!
