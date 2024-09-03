@@ -4,5 +4,9 @@ const {expect} = require("chai");
 const {ethers} = require("hardhat");
 
 describe("MyTest", () => {
-  async function
+  async function globalObjectsNeeded() {
+    const [owners, other] = await ethers.getSigners();
+
+    ethers.getContractFactory()
+  }
 })
