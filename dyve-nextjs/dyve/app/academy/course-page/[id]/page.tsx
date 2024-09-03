@@ -46,7 +46,7 @@ export default function Page({ params }: { params: { id: string } }) {
             alt="video thumbnail"
             className="rounded-r1"
           />
-          <Button onClick={}></Button>
+          <Button onClick={() => {}}></Button>
         </div>
       </div>
     </main>
