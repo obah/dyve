@@ -1,10 +1,19 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+"use client";
+
+import Features from "@/components/Features";
+import Hero from "@/components/Hero";
+import QuickGuide from "@/components/QuickGuide";
+
 
 export default function Home() {
+
   return (
-    <div>
-      <Button>Click</Button>
+    <div
+      className="bg-background"
+    >  
+      <Hero />
+      <Features />
+      <QuickGuide />
     </div>
   );
 }
