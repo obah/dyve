@@ -39,11 +39,16 @@ contract DyvHighStake {
         _;
     }
 
+    modifier noAddressZero() {
+      require(msg.sender != address(0), "Address Zero Not Allowed at Dyve");
+      _;
+    }
+
     function addToStakingPool(uint256 _amount) external onlyOwner {
         weeklyStakeFund += _amount;
     }
 
-    function stakeHighStableCoin(uint256 amountToStake) external {
+    function stakeHighStableCoin(uint256 amountToStake) external noAddressZero {
         if (amountToStake < 20 * 10 ** 18) {
             revert TheAmountIsLessThanTheRequire();
         }
