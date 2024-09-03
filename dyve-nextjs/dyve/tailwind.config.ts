@@ -18,6 +18,8 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        r1: "20px",
+        r2: "10px",
       },
       colors: {
         background: "#0F0E10",
