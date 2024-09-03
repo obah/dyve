@@ -17,6 +17,7 @@ contract DyvHighStake {
     uint256 amountStaked;
     uint256 timeStaked;
     uint256 rewardEarned;
+    uint256 totalAmount;
     bool isRewardCollected;
     bool stakeDeposited;
   }
@@ -35,7 +36,7 @@ contract DyvHighStake {
   error ThisUserDoesNotExist();
   error MinimumOf7daysStakeIsRequired();
 
-  event RewardWithdrawn(address indexed user, uint256 rewardGiven);
+  event withdrawalSuccesful(address indexed user, uint256 rewardGiven);
 
   event stakingSuccessful(address userAddress, uint256 amountStaked);
 
@@ -51,38 +52,54 @@ contract DyvHighStake {
     weeklyStakeFund += _amount;
 
   }
-  function stakeStableCoin(uint256 amountToStake, uint256 duration) external {
+  function stakeHighStableCoin(uint256 amountToStake) external {
     if(msg.sender == address(0)){
       revert YouCantTransactWithAddressZero();
     }
-    if(duration >= durationOfStake) {
-      revert YouCantStakeAtDeadline();
-    }
+    // if(duration >= durationOfStake) {
+    //   revert YouCantStakeAtDeadline();
+    // }
     if(amountToStake < 20 * 10 ** 18) {
       revert TheAmountIsLessThanTheRequire();
     }
     
     IERC20(usdtStakedAddress).transferFrom(msg.sender, address(this), amountToStake);
 
+    uint _totalAmount = 0;
+    if(stakingPool[msg.sender].length > 0){
+      for(uint256 i = 0; i <stakingPool[msg.sender].length; i++) {
+        _totalAmount += stakingPool[msg.sender][i].amountStaked;
+        _totalAmount += stakingPool[msg.sender][i].rewardEarned;
+      }
+    }
+
     Stakers memory newStaker = Stakers({
             amountStaked: amountToStake,
             timeStaked: block.timestamp,
             rewardEarned: 0,
+            totalAmount: _totalAmount,
             isRewardCollected: false,
             stakeDeposited: true
     });
+    
+   
 
     stakingPool[msg.sender].push(newStaker);
     
     emit stakingSuccessful(msg.sender, amountToStake); 
   }
 
+  function updateUserDashboard(Stakers memory stakers) external {
+    
+
+  }
+
 
   function calculateReward(uint amountStaked, uint256 timeStaked) internal view returns(uint256) {
-    if(msg.sender != owner) {
+    if(msg.sender != address(0)) {
       revert YouCantTransactWithAddressZero();
     }
-    if(amountStaked > 20 * 10 ** 18){
+    if(amountStaked > 20 * 10 ** 2){
       revert TheAmountIsLessThanTheRequire();
     }
     uint256 timeStakedInSeconds = block.timestamp - timeStaked;
@@ -98,15 +115,14 @@ contract DyvHighStake {
    return share;
   }
 
-
-
   function withdrawReward(address user, uint256 amount) external {
         bool userExists = false;
 
         for (uint256 i = 0; i < stakingPool[user].length; i++) {
             if (stakingPool[user][i].amountStaked >= amount) {
                 userExists = true;
-                uint256 reward = stakingPool[user][i].rewardEarned;
+                uint256 reward = calculateReward(stakingPool[user][i].amountStaked, stakingPool[user][i].timeStaked);
+                stakingPool[user][i].rewardEarned = reward;
                 IERC20(usdtStakedAddress).transfer(user, reward);
 
                 stakingPool[user][i].amountStaked -= amount;
@@ -115,7 +131,7 @@ contract DyvHighStake {
                     removeStake(user, i);
                 }
 
-                emit RewardWithdrawn(user, reward);
+                emit withdrawalSuccesful(user, reward);
                 break;
             }
         }
