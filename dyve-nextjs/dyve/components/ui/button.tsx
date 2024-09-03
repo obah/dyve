@@ -18,10 +18,13 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        activeLink: "bg-purple-3 p-2 w-[100px] text-white font-medium text-md",
-        inActiveLink: "bg-transparent px-4 py-2 text-white font-medium text-md",
+        activeLink:
+          "bg-purple-3 p-2 w-[100px] text-white font-medium text-md h-4",
+        inActiveLink:
+          "bg-transparent px-4 py-2 text-white font-medium text-md h-4",
         auxBtn: "bg-purple-4 px-4 py-2 text-black-1 font-medium text-md",
-        heroBtn: "bg-purple-1 text-lg text-black-1 py-4 px-8 hover:text-white hover:bg-primary/90",
+        heroBtn:
+          "bg-purple-1 text-lg text-black-1 py-4 px-8 hover:text-white hover:bg-primary/90",
       },
       size: {
         default: "h-[60px] px-4 py-[30px]",
