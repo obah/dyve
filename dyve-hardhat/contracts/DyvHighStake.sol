@@ -11,7 +11,7 @@ contract DyvHighStake {
     address public usdtStakedAddress;
     uint256 public weeklyStakeFund;
 
-    MicroLoan public microLoanContractAddress;
+    // MicroLoan public microLoanContractAddress;
 
     struct Stakers {
         uint256 amountStaked;
@@ -24,10 +24,10 @@ contract DyvHighStake {
 
     mapping(address => Stakers[]) public stakingPool;
 
-    constructor(address _stakedTokenAddress, address _microLoanContractAddress) {
+    constructor(address _stakedTokenAddress) {
         owner = msg.sender;
         usdtStakedAddress = _stakedTokenAddress;
-        microLoanContractAddress = MicroLoan(_microLoanContractAddress);
+        // microLoanContractAddress = MicroLoan(_microLoanContractAddress);
     }
 
     error YouCantStakeAtDeadline();
@@ -49,33 +49,6 @@ contract DyvHighStake {
     modifier noAddressZero() {
         require(msg.sender != address(0), "Address Zero Not Allowed at Dyve");
         _;
-    }
-
-    function depositIntoMicroLoan(uint256 amount, address fromThisUser) external {
-        if (fromThisUser == address(0)) {
-            revert AddressZeroDetected();
-        }
-        if (msg.sender != address(microLoanContractAddress)) {
-            revert YouAreNotAllowedToCallThisFunction();
-        }
-        if (stakingPool[fromThisUser].length == 0) {
-            revert ThisUserDoesNotExist();
-        }
-        uint256 totalAmountStaked = 0;
-        for (uint256 i = 0; i < stakingPool[fromThisUser].length; i++) {
-            totalAmountStaked += stakingPool[fromThisUser][i].amountStaked;
-        }
-        if (amount > totalAmountStaked) {
-            revert ThisUserDoesNotHaveThisAmount();
-        }
-        IERC20 token = IERC20(usdtStakedAddress);
-        require(
-            token.transferFrom(fromThisUser, address(microLoanContractAddress), amount),
-            "Transfer to Savings failed"
-        );
-        // This Needs to be implemented in the MicroLoan
-        microLoanContractAddress.depositFromSavings(amount);
-        reduceStakingAmount(fromThisUser, amount);
     }
 
     function addToStakingPool(uint256 _amount) external onlyOwner {
@@ -163,4 +136,31 @@ contract DyvHighStake {
             }
         }
     }
+
+    // function depositIntoMicroLoan(uint256 amount, address fromThisUser) external {
+    //     if (fromThisUser == address(0)) {
+    //         revert AddressZeroDetected();
+    //     }
+    //     if (msg.sender != address(microLoanContractAddress)) {
+    //         revert YouAreNotAllowedToCallThisFunction();
+    //     }
+    //     if (stakingPool[fromThisUser].length == 0) {
+    //         revert ThisUserDoesNotExist();
+    //     }
+    //     uint256 totalAmountStaked = 0;
+    //     for (uint256 i = 0; i < stakingPool[fromThisUser].length; i++) {
+    //         totalAmountStaked += stakingPool[fromThisUser][i].amountStaked;
+    //     }
+    //     if (amount > totalAmountStaked) {
+    //         revert ThisUserDoesNotHaveThisAmount();
+    //     }
+    //     IERC20 token = IERC20(usdtStakedAddress);
+    //     require(
+    //         token.transferFrom(fromThisUser, address(microLoanContractAddress), amount),
+    //         "Transfer to Savings failed"
+    //     );
+    //     // This Needs to be implemented in the MicroLoan
+    //     microLoanContractAddress.depositFromSavings(amount);
+    //     reduceStakingAmount(fromThisUser, amount);
+    // }
 }
