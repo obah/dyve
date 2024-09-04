@@ -56,6 +56,7 @@ const Navbar = () => {
         >
           <Button
             variant={"heroBtn"}
+            className='w-[160px]'
           >
             Register
           </Button>
