@@ -3,16 +3,6 @@ pragma solidity ^0.8.24;
 
 import "./interfaces/IERC20.sol";
 
-/* 
-This contract handles the loan servicing of Dyve.
--   We have Loan providers
--   We have loan receivers
--   We have loan payment Interest rate 
--   We have loan providers Yield rate 
--   We have a pool for Loans
--   Loan would be issued and paid using our token
- */
-
 contract MicroLoan {
 
     uint256 public borrowersInterestRate;
@@ -24,6 +14,7 @@ contract MicroLoan {
 
     address public tokenAddress;
     address public owner;
+    address public savingsContract;
 
     struct LoanProvider {
         address providerAddress;
@@ -52,6 +43,22 @@ contract MicroLoan {
     mapping(address => uint256[]) public borrowerIds;
     mapping(address => bool) public hasBorrowed;
 
+
+    event DepositFromSavings(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
+    event TransferToSavings(address indexed savingsContract, uint256 indexed amount, uint256 indexed timestamp);
+
+    event LoanSupplied(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
+    event CollateralDeposited(uint256 indexed borrowerId, address indexed borrower, uint256 collateralAmount, uint256 timestamp);
+    event LoanBorrowed(uint256 indexed borrowerId, address indexed borrower, uint256 amount, uint256 collateralAmount, uint256 paybackTime, uint256 timestamp);
+    event YieldCalculated(address indexed provider, uint256 indexed yieldAmount, uint256 indexed timestamp);
+    event LoanRepaid(uint256 indexed borrowerId, address indexed borrower, uint256 amountRepaid, uint256 remainingBalance, uint256 timestamp);
+    event LoanLiquidated(uint256 indexed borrowerId, address indexed borrower, uint256 collateralAmount, uint256 loanAmount, uint256 timestamp);
+    event YieldWithdrawn(address indexed provider, uint256 indexed amountWithdrawn, uint256 indexed timestamp);
+    event BorrowersInterestRateSet(uint256 indexed newRate, uint256 indexed timestamp);
+    event ProvidersYieldRateSet(uint256 indexed newRate, uint256 indexed timestamp);
+    event MaxBorrowAmountSet(uint256 indexed newAmount, uint256 indexed timestamp);
+
+
     modifier onlyOwner() {
         require(owner == msg.sender, "Unauthorized user");
         _;
@@ -62,6 +69,26 @@ contract MicroLoan {
         tokenAddress = _tokenAddress;
         minReserve = _minReserve;
     }
+
+
+    function depositFromSavings(uint256 amount) external {
+        // Transfers tokens from the savings contract to the microloan contract
+        require(IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount), "Transfer failed");
+
+        providerBalance[msg.sender] += amount;
+
+        emit DepositFromSavings(msg.sender, amount, block.timestamp);
+    }
+
+    function transferToSavings(uint256 amount) external {
+        // Transfers tokens from the microloan contract to the savings contract
+        require(IERC20(tokenAddress).transfer(savingsContract, amount), "Transfer failed");
+
+        providerBalance[msg.sender] -= amount;
+
+        emit TransferToSavings(savingsContract, amount, block.timestamp);
+    }
+
 
     function supplyLoanPool(uint256 amount) external {
         IERC20 token = IERC20(tokenAddress);
@@ -79,7 +106,10 @@ contract MicroLoan {
 
         numberOfProviders[loanGiverId] = providers[msg.sender];
         providerBalance[msg.sender] += amount;
+
+        emit LoanSupplied(msg.sender, amount, block.timestamp);
     }
+    
 
     function depositCollateral() external {
         // Fetch the borrower's ID from the mapping
@@ -103,10 +133,13 @@ contract MicroLoan {
 
         // Update borrower's collateral amount
         borrower.collateralAmount = collateralAmount;
+
+        emit CollateralDeposited(borrowerId, msg.sender, collateralAmount, block.timestamp);
     }
 
 
     function borrow(uint256 amount, uint256 paybackTime) external {
+        
         IERC20 token = IERC20(tokenAddress);
 
         uint256 collateralAmount = (amount * 75) / 100; // 75% of the loan amount
@@ -133,11 +166,18 @@ contract MicroLoan {
         hasBorrowed[msg.sender] = true;
 
         require(token.transfer(msg.sender, amount), "Transfer failed");
+
+        emit LoanBorrowed(borrowerId, msg.sender, amount, collateralAmount, paybackTime, block.timestamp);
+        
     }
 
-    function calculateYield(LoanProvider storage provider) internal view returns (uint256) {
+
+    function calculateYield(LoanProvider storage provider) internal returns (uint256) {
         uint256 timeElapsed = block.timestamp - provider.timeProvided;
         uint256 yield = (provider.amountProvided * providersYieldRate * timeElapsed) / (365 days * 100);
+
+        emit YieldCalculated(provider.providerAddress, yield, block.timestamp);
+
         return yield;
     }
 
@@ -184,6 +224,8 @@ contract MicroLoan {
             borrower.collateralAmount = 0;
             hasBorrowed[msg.sender] = false;
         }
+
+        emit LoanRepaid(borrowerId, msg.sender, outstandingAmount, borrowerBalance[borrowerId], block.timestamp);
     }
 
     function liquidateCollateral() external {
@@ -221,6 +263,8 @@ contract MicroLoan {
         borrower.amountRepaid = 0;
 
         hasBorrowed[borrower.borrowerAddress] = false;
+
+         emit LoanLiquidated(borrowerId, borrowerAddress, collateralToTransfer, amountToPayPool, block.timestamp);
     }
 
     function withdrawProviderFunds() external {
@@ -235,19 +279,30 @@ contract MicroLoan {
 
         provider.amountWithdrawn += amountToWithdraw;
         provider.yieldAccrued = 0; 
+
+        emit YieldWithdrawn(msg.sender, amountToWithdraw, block.timestamp);
     }
     
 
     function setBorrowersInterest(uint256 rate) external onlyOwner {
         borrowersInterestRate = rate;
+
+        emit BorrowersInterestRateSet(borrowersInterestRate, block.timestamp);
+
     }
 
     function setLoanProvidersYield(uint256 rate) external onlyOwner {
         providersYieldRate = rate;
+
+        emit ProvidersYieldRateSet(providersYieldRate, block.timestamp);        
+
     }
 
     function setMaxBorrowAmount(uint256 amount) external onlyOwner {
         maxBorrowAmount = amount;
+
+        emit MaxBorrowAmountSet(maxBorrowAmount, block.timestamp);
+
     }
 
     function getLoanPoolBalance() external view onlyOwner returns (uint256) {
