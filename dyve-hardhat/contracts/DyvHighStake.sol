@@ -73,6 +73,7 @@ contract DyvHighStake {
             token.transferFrom(fromThisUser, address(microLoanContractAddress), amount),
             "Transfer to Savings failed"
         );
+        // This Needs to be implemented in the MicroLoan
         microLoanContractAddress.depositIntoMicroLoan(amount);
         reduceStakingAmount(fromThisUser, amount);
     }
