@@ -2,24 +2,31 @@
 
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+// import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./MicroLoan.sol";
 
 contract DyvLowStake {
 
     error YouCantTransactWithAddressZero();
     error YouCantStakeInZeroAmount();
     error YouHaventEarnedThisRewardYet();
+    error AddressZeroDetected();
+    error YouAreNotAllowedToCallThisFunction();
+    error ThisUserDoesNotExist();
+    error ThisUserDoesNotHaveThisAmount();
 
     address public owner;
     address public tokenAddress;
-
-    constructor(address _tokenAddress) {
+    MicroLoan public microLoanContractAddress;
+    
+    constructor(address _tokenAddress, address _microLoanContractAddress) {
         if (_tokenAddress == address(0)) {
             revert YouCantTransactWithAddressZero();
         }
 
         owner = msg.sender;
         tokenAddress = _tokenAddress;
+        microLoanContractAddress = MicroLoan(_microLoanContractAddress);
     }
 
     struct Staker {
@@ -34,7 +41,51 @@ contract DyvLowStake {
     mapping(address => Staker[]) public usersStakes;
 
     event StakingSuccessful(address indexed user, uint256 amount);
-
+    
+    function depositIntoMicroLoan(uint256 amount, address fromThisUser) external {
+        if (fromThisUser == address(0)) {
+            revert AddressZeroDetected();
+        }
+        if (msg.sender != address(microLoanContractAddress)) {
+            revert YouAreNotAllowedToCallThisFunction();
+        }
+        if (usersStakes[fromThisUser].length == 0) {
+            revert ThisUserDoesNotExist();
+        }
+        uint256 totalAmountStaked = 0;
+        for (uint256 i = 0; i < usersStakes[fromThisUser].length; i++) {
+            totalAmountStaked += usersStakes[fromThisUser][i].amountStaked;
+        }
+        if (amount > totalAmountStaked) {
+            revert ThisUserDoesNotHaveThisAmount();
+        }
+        IERC20 token = IERC20(tokenAddress);
+        require(
+            token.transferFrom(fromThisUser, address(microLoanContractAddress), amount),
+            "Transfer to Savings failed"
+        );
+        // This Needs to be implemented in the MicroLoan
+        microLoanContractAddress.depositIntoMicroLoan(amount);
+        reduceStakingAmount(fromThisUser, amount);
+    }
+    function removeStake(address user, uint256 index) internal {
+        uint256 lastIndex = usersStakes[user].length - 1;
+        if (index != lastIndex) {
+            usersStakes[user][index] = usersStakes[user][lastIndex];
+        }
+        usersStakes[user].pop();
+    }
+    function reduceStakingAmount(address user, uint256 amount) internal {
+        for (uint256 i = 0; i < usersStakes[user].length; i++) {
+            if (usersStakes[user][i].amountStaked >= amount) {
+                usersStakes[user][i].amountStaked -= amount;
+                if (usersStakes[user][i].amountStaked == 0) {
+                    removeStake(user, i);
+                }
+                break;
+            }
+        }
+    }
     function stakeLowStableCoin(uint256 _amount) public {
         if (_amount == 0) {
             revert YouCantStakeInZeroAmount();
