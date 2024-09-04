@@ -1,4 +1,4 @@
-import { CatalogItem } from "./types";
+import { CatalogItem, TransactionsData } from "./types";
 
 export const courses: CatalogItem[] = [
   {
@@ -48,5 +48,29 @@ export const courses: CatalogItem[] = [
     description:
       "Financial Management Masterclass, you will learn with Sarah Johnson - Head of Financial Platform Gojek Indonesia.",
     reward: 500,
+  },
+];
+
+export const dummyTransactions: TransactionsData[] = [
+  {
+    id: "#1532",
+    type: "Loan Issued",
+    date: "Dec 30, 10:06 AM",
+    status: "paid",
+    total: "$ 329.40",
+  },
+  {
+    id: "#1531",
+    type: "Loan Paid",
+    date: "Dec 29, 2:59 AM",
+    status: "pending",
+    total: "$ 329.40",
+  },
+  {
+    id: "#1530",
+    type: "Rewards Recieved",
+    date: "Dec 23, 6:20 AM",
+    status: "pending",
+    total: "$ 329.40",
   },
 ];
