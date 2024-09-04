@@ -3,4 +3,5 @@ export interface CatalogItem {
   imageUrl: string;
   title: string;
   description: string;
+  reward: number;
 }

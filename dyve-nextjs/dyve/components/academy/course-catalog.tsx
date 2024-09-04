@@ -30,12 +30,22 @@ export function CourseCatalog({ data }: Props) {
             </p>
           </div>
 
-          <Link
-            href={`/academy/course-page/${item.id}`}
-            className={buttonVariants({ variant: "default", size: "sm" })}
-          >
-            Enroll Now
-          </Link>
+          <div className="flex justify-between">
+            <Link
+              href={`/academy/course-page/${item.id}`}
+              className={buttonVariants({ variant: "default", size: "sm" })}
+            >
+              Enroll Now
+            </Link>
+
+            <div className="inline-flex items-center justify-between rounded-full border border-green-500 p-2">
+              <p className="text-xs font-light text-white">Earn</p>{" "}
+              <span className="text-sm font-normal text-green-500">
+                {" "}
+                ${item.reward}
+              </span>
+            </div>
+          </div>
         </CatalogWrapper>
       ))}
     </div>

@@ -7,6 +7,7 @@ export const courses: CatalogItem[] = [
     title: "Intro to Blockchain and Cryptocurrencies",
     description:
       "Your first step into the world of financial literacy and blockchain",
+    reward: 50,
   },
   {
     id: "2",
@@ -14,6 +15,7 @@ export const courses: CatalogItem[] = [
     title: "Financial Assets: Traditional & Digital",
     description:
       "Series of modules and interractive exercises to get you familiar with different financial assets and instruments",
+    reward: 100,
   },
   {
     id: "3",
@@ -21,6 +23,7 @@ export const courses: CatalogItem[] = [
     title: "Getting Started with DeFi",
     description:
       "Learn how to manage your money, understand decentralized finance, and build a brighter financial future",
+    reward: 120,
   },
   {
     id: "4",
@@ -28,6 +31,7 @@ export const courses: CatalogItem[] = [
     title: "Financial Literacy and Smart Investments",
     description:
       "Financial Management Masterclass, you will learn with Sarah Johnson - Head of Financial Platform Gojek Indonesia.",
+    reward: 150,
   },
   {
     id: "5",
@@ -35,6 +39,7 @@ export const courses: CatalogItem[] = [
     title: "Financial Literacy and Smart Investments",
     description:
       "Financial Management Masterclass, you will learn with Sarah Johnson - Head of Financial Platform Gojek Indonesia.",
+    reward: 200,
   },
   {
     id: "6",
@@ -42,5 +47,6 @@ export const courses: CatalogItem[] = [
     title: "Financial Literacy and Smart Investments",
     description:
       "Financial Management Masterclass, you will learn with Sarah Johnson - Head of Financial Platform Gojek Indonesia.",
+    reward: 500,
   },
 ];

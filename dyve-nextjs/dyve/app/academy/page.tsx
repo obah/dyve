@@ -16,7 +16,8 @@ export default function Page() {
 
           <p className="w-10/12 text-[20px] font-normal">
             Learn how to manage your money, understand decentralized finance,
-            and build a brighter financial future
+            build a brighter financial future and best of all - we{" "}
+            <span className="text-purple-1">pay</span> you for learning.
           </p>
 
           <Link
