@@ -5,8 +5,14 @@ const {ethers} = require("hardhat");
 
 describe("MyTest", () => {
   async function globalObjectsNeeded() {
-    const [owners, other] = await ethers.getSigners();
 
-    ethers.getContractFactory()
+    stakedTokenAddress ="0xe6B266d72d16a4C01F0415167De79797d3911421";
+    const [owner, other] = await ethers.getSigners();
+
+    const dyvHighStake = await ethers.getContractFactory("DyvHighStake");
+
+    dyvHighStake.deploy(stakedTokenAddress);
+
+    return {stakedTokenAddress, owner, dyvHighStake};
   }
 })
