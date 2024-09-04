@@ -23,13 +23,13 @@ const Accounts = () => {
     <div className="mb-4">
 
         <div
-            className="flex flex-row justify-between items-center"
+            className="flex flex-row justify-between gap-4 items-center"
         >
             {
                 dataA.map((cur:any, id:number) => (
                     <div
                         key={id}
-                        className="p-4 rounded-xl bg-background-3"
+                        className="p-4 w-full rounded-xl bg-background-3"
                     >
                         <p
                             className="flex flex-row justify-start items-center text-white-5 text-xs font-medium mb-4"

@@ -16,6 +16,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
+import { Button } from "./button";
+import { FaLongArrowAltDown } from "react-icons/fa";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -39,7 +41,31 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md p-2 bg-black-background-2">
+      <div
+            className='pb-2 border-b mb-4 flex flex-row justify-between items-center'
+      >
+        <p
+            className='text-xl font-normal text-white'
+        >
+            Transactions
+        </p>
+
+         <div className="flex flex-row justify-between items-center w-[250px]">
+          <p
+              className='flex flex-row items-center bg-black border-2 border-purple-1 rounded-xl text-xs text-white font-medium p-2 mb-2'
+          >
+              Export data <FaLongArrowAltDown className="ml-2" />
+          </p>
+
+          <p
+              className='bg-gradient-to-r from-[#C239F4] to-[#71218E] rounded-xl text-xs text-white font-medium p-2 mb-2'
+          >
+              Create report
+          </p>
+         </div>
+      </div>
+
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

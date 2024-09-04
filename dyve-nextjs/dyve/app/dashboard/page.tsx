@@ -1,7 +1,12 @@
+"use client";
+
+import { transaction_column } from "@/components/columns/transaction-column";
 import Accounts from "@/components/dashboard/Accounts";
 import CourseCount from "@/components/dashboard/CourseCount";
 import CurrentCourse from "@/components/dashboard/CurrentCourse";
 import Notification from "@/components/dashboard/Notification";
+import { DataTable } from "@/components/ui/data-table";
+import { dummyTransactions } from "@/lib/data";
 
 export default function Page() {
   return (
@@ -21,6 +26,8 @@ export default function Page() {
           <CourseCount />
 
           <CurrentCourse />
+
+          <DataTable columns={transaction_column} data={dummyTransactions}/>
         </div>
 
         <Notification />
