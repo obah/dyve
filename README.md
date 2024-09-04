@@ -40,7 +40,7 @@ Our innovative blockchain-based ecosystem is designed specifically to address th
 
 <li><strong>Dyve Learning :</strong>
 
-We offer curated courses, tailored with multilingual support, that demystify complex topics on blockchain technology and financial education. These courses are available in the user’s preferred native language, covering web3 and financial investments. Progress for all students in their courses are tracked and stored on the blockchain in DyvCards. Any certifications, awards or other info are stored too in the DyvCards for each respective student. The smart contract auto updates the student's DyvCard as they make any progress or status changes. Data stored in DyvCards are immutable. DyvCards have unique IDs, which can be used to retreive and verify the student's data.
+We offer curated courses and activities, tailored with multilingual support, that demystify complex topics on financial education, investments and blockchain technology utilizing a learn and earn model. These courses are available in the user’s preferred native language, covering web3 and financial investments. The activities and assessments are made to be as interactive and engaging as possible. Progress for all students in their courses are tracked and stored on the blockchain in DyvCards. Any certifications, awards or other info are stored too in the DyvCards for each respective student. The smart contract auto updates the student's DyvCard as they make any progress or status changes. Data stored in DyvCards are immutable. DyvCards have unique IDs, which can be used to retreive and verify the student's data.
 
 </li>
 
