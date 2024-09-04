@@ -11,7 +11,7 @@ type PropT = {
 const FeaturesCard = ({data, idx}:{data:PropT, idx:number}) => {
   return (
     <div
-        className='bg-gradient-to-br from-purple-1/10 shadow-lg rounded-xl p-8 h-[244px] w-[550px] mr-10 border-[0.5px] border-slate-500 rounded-lg flex flex-row'
+        className='bg-gradient-to-r from-purple-1/10 shadow-lg rounded-xl p-8 h-[244px] w-[550px] mr-10 border-[0.5px] border-slate-500 rounded-lg flex flex-row'
     >
         <div
             className='flex flex-col justify-between'
