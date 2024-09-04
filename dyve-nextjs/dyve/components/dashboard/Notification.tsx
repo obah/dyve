@@ -51,6 +51,7 @@ const Notification = () => {
                 {
                     dataA.map((cur:any, id:number) => (
                         <div
+                            key={id}
                             className="flex flex-row justify-start items-center mb-2"
                         >
                             <IoNotifications className="text-purple-5 font-medium mr-4" />
@@ -77,8 +78,9 @@ const Notification = () => {
 
             <div>
                 {
-                    dataB.map((cur:any, id:number) => (
+                    dataB.map((cur:any, idx:number) => (
                         <div
+                            key={idx}
                             className="flex flex-row justify-start items-center mb-2"
                         >
                             <IoMdTabletPortrait className="text-purple-5 font-medium mr-2" />
