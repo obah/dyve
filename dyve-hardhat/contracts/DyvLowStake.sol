@@ -65,7 +65,7 @@ contract DyvLowStake {
             "Transfer to Savings failed"
         );
         // This Needs to be implemented in the MicroLoan
-        microLoanContractAddress.depositFromSavings(amount);
+        // microLoanContractAddress.depositFromSavings(amount);
         reduceStakingAmount(fromThisUser, amount);
     }
     function removeStake(address user, uint256 index) internal {
