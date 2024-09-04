@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { MdArrowOutward } from "react-icons/md";
 import { FiArrowDownRight } from "react-icons/fi";
 import { AiOutlineLogout } from "react-icons/ai";
+import Image from "next/image";
 
 export function Sidebar({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +13,7 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center px-5">
             <Link className="flex items-center gap-2 font-semibold" href="/">
-              <img src="/assets/logo.png" />
+              <Image src="/assets/logo.png" width={90} height={30} alt="logo" />
             </Link>
           </div>
           <div className="flex flex-1 flex-col justify-between overflow-auto py-2">
