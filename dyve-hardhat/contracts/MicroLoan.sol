@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: MIT 
+
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import "./interfaces/IERC20.sol";
@@ -10,11 +11,10 @@ contract MicroLoan {
     uint256 private nextBorrowerId = 1; 
     uint256 private nextLoanGiverId = 1;
     uint256 public maxBorrowAmount;
-    uint256 minReserve = 10_000 * 10**18; // 10,000 tokens 
+    uint256 minReserve = 10_000 * 10**2; // 10,000 tokens 
 
-    address public tokenAddress;
     address public owner;
-    address public savingsContract;
+    address public mockUSDT;
 
     struct LoanProvider {
         address providerAddress;
@@ -44,8 +44,8 @@ contract MicroLoan {
     mapping(address => bool) public hasBorrowed;
 
 
-    event DepositFromSavings(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
-    event TransferToSavings(address indexed savingsContract, uint256 indexed amount, uint256 indexed timestamp);
+    event Deposit(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
+    event Transfer(address indexed DyvLowStake, uint256 indexed amount, uint256 indexed timestamp);
 
     event LoanSupplied(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
     event CollateralDeposited(uint256 indexed borrowerId, address indexed borrower, uint256 collateralAmount, uint256 timestamp);
@@ -64,34 +64,40 @@ contract MicroLoan {
         _;
     }
 
-    constructor(address _tokenAddress, uint256 _minReserve) {
+    constructor(address _mockUSDT, uint256 _minReserve) {
         owner = msg.sender;
-        tokenAddress = _tokenAddress;
+        mockUSDT = _mockUSDT;
         minReserve = _minReserve;
     }
 
-
-    function depositFromSavings(uint256 amount) external {
-        // Transfers tokens from the savings contract to the microloan contract
-        require(IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount), "Transfer failed");
-
+    function depositToLoan(uint256 amount) external {
+        IERC20 token = IERC20(mockUSDT);
+        
+        require(token.transferFrom(msg.sender, address(this), amount), "Transfer failed");
+        
         providerBalance[msg.sender] += amount;
-
-        emit DepositFromSavings(msg.sender, amount, block.timestamp);
+        
+        emit Deposit(msg.sender, amount, block.timestamp);
     }
 
-    function transferToSavings(uint256 amount) external {
-        // Transfers tokens from the microloan contract to the savings contract
-        require(IERC20(tokenAddress).transfer(savingsContract, amount), "Transfer failed");
 
+    function withdrawFromLoan(uint256 amount) external {
+        IERC20 token = IERC20(mockUSDT);
+        
+        require(providerBalance[msg.sender] >= amount, "Insufficient balance");
+        
         providerBalance[msg.sender] -= amount;
-
-        emit TransferToSavings(savingsContract, amount, block.timestamp);
+        
+        require(token.transfer(msg.sender, amount), "Transfer failed");
+        
+        emit YieldWithdrawn(msg.sender, amount, block.timestamp);
     }
 
 
     function supplyLoanPool(uint256 amount) external {
-        IERC20 token = IERC20(tokenAddress);
+        require(amount > providerBalance[msg.sender], "Insufficient fund");
+
+        IERC20 token = IERC20(mockUSDT);
 
         require(token.transferFrom(msg.sender, address(this), amount), "Transfer failed");
 
@@ -109,16 +115,16 @@ contract MicroLoan {
 
         emit LoanSupplied(msg.sender, amount, block.timestamp);
     }
-    
 
+    // deposit collateral when user wants to request for loan
     function depositCollateral() external {
         // Fetch the borrower's ID from the mapping
-        uint256[] storage borrowerIdsList = borrowerIds[msg.sender];
+        uint256[] memory borrowerIdsList = borrowerIds[msg.sender];
         require(borrowerIdsList.length > 0, "No active loans found");
 
         // Assuming the borrower has only one active loan
         uint256 borrowerId = borrowerIdsList[0];
-        Borrower storage borrower = borrowers[borrowerId];
+        Borrower memory borrower = borrowers[borrowerId];
 
         // Calculate required collateral as 75% of the borrower's outstanding balance
         uint256 amountBorrowed = borrower.amountBorrowed;
@@ -128,7 +134,7 @@ contract MicroLoan {
         require(borrower.collateralAmount == 0, "Collateral already deposited");
 
         // Transfer the calculated collateral amount from the borrower to the contract
-        IERC20 token = IERC20(tokenAddress);
+        IERC20 token = IERC20(mockUSDT);
         require(token.transferFrom(msg.sender, address(this), collateralAmount), "Transfer failed");
 
         // Update borrower's collateral amount
@@ -137,10 +143,9 @@ contract MicroLoan {
         emit CollateralDeposited(borrowerId, msg.sender, collateralAmount, block.timestamp);
     }
 
-
     function borrow(uint256 amount, uint256 paybackTime) external {
         
-        IERC20 token = IERC20(tokenAddress);
+        IERC20 token = IERC20(mockUSDT);
 
         uint256 collateralAmount = (amount * 75) / 100; // 75% of the loan amount
 
@@ -192,29 +197,25 @@ contract MicroLoan {
 
     function payLoan() external {
         // Retrieve borrower IDs for msg.sender
-        uint256[] storage borrowerIdsList = borrowerIds[msg.sender];
+        uint256[] memory borrowerIdsList = borrowerIds[msg.sender];
         require(borrowerIdsList.length > 0, "No active loans found");
 
-        // Assuming borrower only has one active loan
+        // Assumption::: borrower can have only one active loan
         uint256 borrowerId = borrowerIdsList[0];
-        Borrower storage borrower = borrowers[borrowerId];
+        Borrower memory borrower = borrowers[borrowerId];
 
         require(borrower.borrowerAddress == msg.sender, "Not the borrower");
 
-        // Outstanding balance (amountBorrowed - amountRepaid)
         uint256 outstandingAmount = borrower.amountBorrowed - borrower.amountRepaid;
 
         require(outstandingAmount > 0, "No outstanding balance");
 
-        // Transfer the payment amount from the borrower to the contract
-        IERC20 token = IERC20(tokenAddress);
+        IERC20 token = IERC20(mockUSDT);
         require(token.transferFrom(msg.sender, address(this), outstandingAmount), "Transfer failed");
 
-        // Update borrower’s repayment amount and balance
         borrower.amountRepaid += outstandingAmount;
         borrowerBalance[borrowerId] -= outstandingAmount;
 
-        // Check if the loan is fully repaid
         if (borrowerBalance[borrowerId] == 0) {
             // Refund collateral
             uint256 collateralToRefund = borrower.collateralAmount;
@@ -228,21 +229,22 @@ contract MicroLoan {
         emit LoanRepaid(borrowerId, msg.sender, outstandingAmount, borrowerBalance[borrowerId], block.timestamp);
     }
 
+    // liquidate collateral from mockUSDT to DYV
     function liquidateCollateral() external {
         // Retrieve borrower IDs for the borrower address
         address borrowerAddress = msg.sender;
-        uint256[] storage borrowerIdsList = borrowerIds[borrowerAddress];
+        uint256[] memory borrowerIdsList = borrowerIds[borrowerAddress];
         require(borrowerIdsList.length > 0, "No active loans found");
 
         // Assuming the borrower has only one active loan
         uint256 borrowerId = borrowerIdsList[0];
-        Borrower storage borrower = borrowers[borrowerId];
+        Borrower memory borrower = borrowers[borrowerId];
 
         require(block.timestamp > borrower.paybackTime, "Loan is not overdue yet");
         require(borrower.amountBorrowed > 0, "No loan to liquidate");
 
         // Transfer collateral to the loan pool
-        IERC20 token = IERC20(tokenAddress);
+        IERC20 token = IERC20(mockUSDT);
         uint256 collateralToTransfer = borrower.collateralAmount;
 
         require(token.transfer(owner, collateralToTransfer), "Transfer to liquidity pool failed"); // Changed to use `owner` address
@@ -274,7 +276,7 @@ contract MicroLoan {
         uint256 amountToWithdraw = provider.amountProvided - provider.amountWithdrawn + yieldToWithdraw;
         require(amountToWithdraw > 0, "No funds to withdraw");
 
-        IERC20 token = IERC20(tokenAddress);
+        IERC20 token = IERC20(mockUSDT);
         require(token.transfer(msg.sender, amountToWithdraw), "Transfer failed");
 
         provider.amountWithdrawn += amountToWithdraw;
@@ -306,7 +308,8 @@ contract MicroLoan {
     }
 
     function getLoanPoolBalance() external view onlyOwner returns (uint256) {
-        IERC20 token = IERC20(tokenAddress);
+        IERC20 token = IERC20(mockUSDT);
         return token.balanceOf(address(this));
     }
+
 }

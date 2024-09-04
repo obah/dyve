@@ -5,6 +5,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { ConnectionModal } from "./auth/connection-modal";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -71,7 +72,8 @@ const Navbar = () => {
       </div>
 
       <div>
-        <Button variant={"heroBtn"}>Register</Button>
+        {/* <Button variant={"heroBtn"}>Register</Button> */}
+        <ConnectionModal />
       </div>
     </div>
   );

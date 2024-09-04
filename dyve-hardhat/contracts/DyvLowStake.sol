@@ -19,14 +19,14 @@ contract DyvLowStake {
     address public tokenAddress;
     MicroLoan public microLoanContractAddress;
     
-    constructor(address _tokenAddress, address _microLoanContractAddress) {
+    constructor(address _tokenAddress) {
         if (_tokenAddress == address(0)) {
             revert YouCantTransactWithAddressZero();
         }
 
         owner = msg.sender;
         tokenAddress = _tokenAddress;
-        microLoanContractAddress = MicroLoan(_microLoanContractAddress);
+        // microLoanContractAddress = MicroLoan(_microLoanContractAddress);
     }
 
     struct Staker {
