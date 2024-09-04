@@ -3,7 +3,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { TPaymentStatus, TransactionsData } from "@/lib/types";
 import { handleTransactionBadge } from "@/lib/utils";
-import { DataTable } from "../ui/data-table";
+import { FaCalendar } from "react-icons/fa";
+import { IoIosCheckbox } from "react-icons/io";
 
 export const transaction_column: ColumnDef<TransactionsData>[] = [
   {
@@ -23,6 +24,7 @@ export const transaction_column: ColumnDef<TransactionsData>[] = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
+        className="border-2 border-white"
       />
     ),
     enableSorting: false,
@@ -34,15 +36,15 @@ export const transaction_column: ColumnDef<TransactionsData>[] = [
   },
   {
     accessorKey: "type",
-    header: () => <div>Tx Type</div>,
+    header: () => <div className="flex flex-row items-center"><FaCalendar className="mr-2" /> Tx Type</div>,
   },
   {
     accessorKey: "date",
-    header: () => <div>Date</div>,
+    header: () => <div className="flex flex-row items-center"><FaCalendar className="mr-2" /> Date</div>,
   },
   {
     accessorKey: "status",
-    header: () => <div>Status</div>,
+    header: () => <div className="flex flex-row items-center" > <IoIosCheckbox className="mr-2" /> Status</div>,
     cell: ({ row }) => {
       const data = row.original;
 

@@ -1,4 +1,4 @@
-import { FaUser } from "react-icons/fa";
+import { IoMdTabletPortrait } from "react-icons/io";
 
 const CourseCount = () => {
 
@@ -19,18 +19,18 @@ const CourseCount = () => {
     >
 
         <div
-            className="flex flex-row justify-between items-center"
+            className="flex flex-row justify-between gap-4 items-center"
         >
             {
                 dataB.map((cur:any, idx:number) => (
                     <div
                         key={idx}
-                        className="p-4 rounded-xl border-2"
+                        className="w-full p-4 rounded-xl border-2"
                     >
                         <p
                             className="flex flex-row justify-start items-center text-white-5 text-xs font-medium mb-4"
                         >
-                            <FaUser className="mr-2" />  {cur.title}
+                            <IoMdTabletPortrait className="text-purple-5 text-xl font-medium mr-2" /> {cur.title}
                         </p>
 
                         <p

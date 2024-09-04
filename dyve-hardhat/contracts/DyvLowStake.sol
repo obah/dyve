@@ -17,7 +17,7 @@ contract DyvLowStake {
 
     address public owner;
     address public tokenAddress;
-    MicroLoan public microLoanContractAddress;
+    // MicroLoan public microLoanContractAddress;
     
     constructor(address _tokenAddress) {
         if (_tokenAddress == address(0)) {
@@ -42,6 +42,7 @@ contract DyvLowStake {
 
     event StakingSuccessful(address indexed user, uint256 amount);
     
+<<<<<<< HEAD
     function depositIntoMicroLoan(uint256 amount, address fromThisUser) external {
         if (fromThisUser == address(0)) {
             revert AddressZeroDetected();
@@ -68,6 +69,34 @@ contract DyvLowStake {
         // microLoanContractAddress.depositFromSavings(amount);
         reduceStakingAmount(fromThisUser, amount);
     }
+=======
+    // function depositIntoMicroLoan(uint256 amount, address fromThisUser) external {
+    //     if (fromThisUser == address(0)) {
+    //         revert AddressZeroDetected();
+    //     }
+    //     if (msg.sender != address(microLoanContractAddress)) {
+    //         revert YouAreNotAllowedToCallThisFunction();
+    //     }
+    //     if (usersStakes[fromThisUser].length == 0) {
+    //         revert ThisUserDoesNotExist();
+    //     }
+    //     uint256 totalAmountStaked = 0;
+    //     for (uint256 i = 0; i < usersStakes[fromThisUser].length; i++) {
+    //         totalAmountStaked += usersStakes[fromThisUser][i].amountStaked;
+    //     }
+    //     if (amount > totalAmountStaked) {
+    //         revert ThisUserDoesNotHaveThisAmount();
+    //     }
+    //     IERC20 token = IERC20(tokenAddress);
+    //     require(
+    //         token.transferFrom(fromThisUser, address(microLoanContractAddress), amount),
+    //         "Transfer to Savings failed"
+    //     );
+    //     // This Needs to be implemented in the MicroLoan
+    //     microLoanContractAddress.depositFromSavings(amount);
+    //     reduceStakingAmount(fromThisUser, amount);
+    // }
+>>>>>>> c6799e39b814c3b2628b7a78a573710ada83a092
     function removeStake(address user, uint256 index) internal {
         uint256 lastIndex = usersStakes[user].length - 1;
         if (index != lastIndex) {

@@ -38,7 +38,7 @@ Our innovative blockchain-based ecosystem is designed specifically to address th
 
 <ol>
 
-<li><strong>Dyve Learning :</strong>
+<li><strong>Dyve Ac :</strong>
 
 We offer curated courses, tailored with multilingual support, that demystify complex topics on blockchain technology and financial education. These courses are available in the user’s preferred native language, covering web3 and financial investments. Progress is tracked, and certifications are issued via soulbound tokens (SBTs).
 
