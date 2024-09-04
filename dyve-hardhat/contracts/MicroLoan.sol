@@ -70,7 +70,6 @@ contract MicroLoan {
         minReserve = _minReserve;
     }
 
-
     function depositFromSavings(uint256 amount) external {
         // Transfers tokens from the savings contract to the microloan contract
         require(IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount), "Transfer failed");
