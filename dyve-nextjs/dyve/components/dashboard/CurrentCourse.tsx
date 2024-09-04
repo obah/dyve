@@ -5,7 +5,7 @@ import { FiSmartphone } from "react-icons/fi";
 const CurrentCourse = () => {
   return (
     <div
-        className='bg-black-2 rounded-xl p-4'
+        className='bg-black-2 rounded-xl p-4 mb-20'
     >
         <div
             className='mb-4 flex flex-row justify-between items-center'
