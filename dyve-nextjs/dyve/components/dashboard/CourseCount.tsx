@@ -15,7 +15,7 @@ const CourseCount = () => {
 
   return (
     <div
-        className='mb-24'
+        className='mb-16'
     >
 
         <div
