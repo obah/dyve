@@ -40,7 +40,7 @@ export function Dropdown({
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
             {
                 options.map((cur:any, id:number) => (
-                    <DropdownMenuRadioItem value={`${cur}`}>{cur}</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem key={id} value={`${cur}`}>{cur}</DropdownMenuRadioItem>
                 ))
             }
         </DropdownMenuRadioGroup>

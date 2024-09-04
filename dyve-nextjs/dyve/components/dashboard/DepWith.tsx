@@ -14,13 +14,23 @@ const DepWith = ({pointer, btnTitle}:{pointer:string, btnTitle:string}) => {
             <p
                 className="text-xl font-normal text-white mr-20"
             >
-                Currency
+                {pointer === "request loan" ? "Duration" : "Currency"}
             </p>
 
-            <Dropdown 
-                title={"Select Currency"}
-                options={["USD", "EUR", "JPN", "Fuck naira"]}
-            />
+            {
+                pointer !== "request loan" ? (
+                    <Dropdown 
+                        title={"Select Currency"}
+                        options={["USD", "EUR", "JPN", "Fuck naira"]}
+                    />
+                ) : (
+                    <Input 
+                        type="date" 
+                        placeholder="Select date" 
+                        className="border-2 border-[#AEB9E1] rounded-2xl text-lg text-[#AEB9E1] font-normal"
+                    />
+                )
+            }
         </div>
 
         <div
@@ -29,7 +39,7 @@ const DepWith = ({pointer, btnTitle}:{pointer:string, btnTitle:string}) => {
             <p
                 className="text-xl font-normal text-white mr-20"
             >
-                Currency
+                Amount
             </p>
 
             <Input 
