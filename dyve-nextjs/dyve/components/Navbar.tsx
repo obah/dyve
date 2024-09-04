@@ -44,7 +44,7 @@ const Navbar = () => {
               : "inActiveLink",
           })}
         >
-          Mico Loan
+          Micro Loan
         </Link>
 
         <Link
