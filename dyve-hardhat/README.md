@@ -18,15 +18,11 @@
 
 **``Meet The Developers:``**
 
-[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/Oba_Ddev)
-
+[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/jeremiahDSamuel)
+](https://github.com/jeremiahDSamuel)[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/Oba_Ddev)
 ](https://github.com/Oba_Ddev) [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/web3papi_)
-
 ](https://github.com/web3papi_) [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/shegspear17)
-
-](https://github.com/shegspear17 )[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/jeremiahDSamuel)
-
-](https://github.com/jeremiahDSamuel)
+](https://github.com/shegspear17 )
 
   
 
@@ -184,7 +180,5 @@ The DIVE Microloan Platform is designed to provide users with accessible microlo
   
 
 #### **Educational Integration**
-
-  
 
 -  **Financial Literacy Emphasis**: In alignment with the DIVE mission to enhance financial literacy, the Microloan Platform includes educational resources on responsible borrowing, collateral management, and repayment strategies. This helps users make informed decisions and manage their finances more effectively.
