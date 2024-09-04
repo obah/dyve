@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <div className="flex w-full flex-row items-center justify-between">
-      <div className="bg-black-background-2 flex w-8/12 flex-row items-center justify-between rounded-lg py-2">
+      <div className="flex w-8/12 flex-row items-center justify-between rounded-lg bg-black-background-2 py-2">
         <Image src="/assets/logo.png" width={90} height={30} alt="Dyve logo" />
 
         <Link
@@ -38,11 +38,9 @@ const Navbar = () => {
         </Link>
 
         <Link
-          href={"/micro-loan"}
+          href={"/loan"}
           className={buttonVariants({
-            variant: pathname.includes("/micro-loan")
-              ? "activeLink"
-              : "inActiveLink",
+            variant: pathname.includes("/loan") ? "activeLink" : "inActiveLink",
           })}
         >
           Micro Loan
@@ -72,7 +70,6 @@ const Navbar = () => {
       </div>
 
       <div>
-        {/* <Button variant={"heroBtn"}>Register</Button> */}
         <ConnectionModal />
       </div>
     </div>

@@ -8,15 +8,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount, useDisconnect } from "wagmi";
 
 export function ConnectionModal() {
   const { openConnectModal } = useConnectModal();
 
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
+
+  const truncate = (text: `0x${string}`) => {
+    const firstThree = text.slice(0, 3);
+    const lastThree = text.slice(-4);
+
+    return `${firstThree}...${lastThree}`;
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"heroBtn"}>Register</Button>
+        <Button>{isConnected ? truncate(address!) : "Register"}</Button>
       </DialogTrigger>
       <DialogContent className="border-[#343B4F] bg-gradient-to-b from-purple-1/10 sm:rounded-r1">
         <DialogHeader>
@@ -26,14 +37,15 @@ export function ConnectionModal() {
         </DialogHeader>
 
         <div className="mt-10 flex flex-col gap-10">
-          <Button variant="outline">Continue with Email</Button>
+          {isConnected ? (
+            <Button onClick={() => disconnect()}>Disconnect</Button>
+          ) : (
+            <>
+              <Button variant="outline">Continue with Email</Button>
 
-          <Button>
-            <ConnectButton />
-          </Button>
-          {/* <Button onClick={openConnectModal}>
-            Connect Wallet
-          </Button> */}
+              <Button onClick={openConnectModal}>Connect Wallet</Button>
+            </>
+          )}
         </div>
       </DialogContent>
     </Dialog>
