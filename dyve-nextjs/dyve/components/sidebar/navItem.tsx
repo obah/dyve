@@ -20,9 +20,9 @@ export function NavItem({
       href={href}
       onClick={onClickHandler}
       className={clsx(
-        "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-900 transition-all hover:bg-gray-300 dark:text-gray-50 dark:hover:text-gray-50",
+        "mb-4 flex items-center gap-3 rounded-lg px-3 py-2 text-white-6 transition-all hover:bg-gray-300 dark:text-black hover:text-black",
         {
-          "bg-gray-100 dark:bg-gray-800": pathname === href,
+          "bg-purple-3 dark:bg-gray-800": pathname === href,
         },
       )}
     >

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.24;
 
-   interface IERC20 {
+interface IERC20 {
 
     function totalSupply() external view returns (uint256);
 
@@ -16,7 +16,7 @@ pragma solidity ^0.8.24;
     function balanceOf(address account) external view returns (uint256);
 
     event Transfer(address indexed from, address indexed to, uint256 value);
-    
+
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
 }
