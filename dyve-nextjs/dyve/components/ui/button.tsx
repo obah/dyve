@@ -22,6 +22,8 @@ const buttonVariants = cva(
         inActiveLink: "bg-transparent px-4 py-2 text-white font-medium text-md",
         auxBtn: "bg-purple-4 px-4 py-2 text-black-1 font-medium text-md",
         heroBtn: "bg-purple-1 text-lg text-black-1 py-4 px-8 hover:text-white hover:bg-primary/90",
+        withdraw: "border-2 border-purple-2 from-[#C239F4] to-[#71218E] text-lg text-white font-semibold p-2 hover:text-white hover:bg-primary/90",
+        deposit: "bg-gradient-to-r from-[#C239F4] to-[#71218E] text-lg text-white font-semibold p-2 hover:text-white hover:bg-primary/90",
       },
       size: {
         default: "h-[60px] px-4 py-[30px]",

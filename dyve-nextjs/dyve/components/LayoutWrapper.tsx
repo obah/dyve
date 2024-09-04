@@ -1,13 +1,18 @@
+"use client";
+
 import React, { PropsWithChildren } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { usePathname } from 'next/navigation';
 
 const LayoutWrapper = ({children}: PropsWithChildren) => {
+  const pathname = usePathname();
+
   return (
     <div>
-        <Navbar/>
+        {!pathname.includes("dashboard") && <Navbar/> }
         <main>{children}</main>
-        <Footer />
+        {!pathname.includes("dashboard") && <Footer /> }
     </div>
   )
 }
