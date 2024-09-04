@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -6,8 +8,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 
 export function ConnectionModal() {
+  const { openConnectModal } = useConnectModal();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,7 +27,13 @@ export function ConnectionModal() {
 
         <div className="mt-10 flex flex-col gap-10">
           <Button variant="outline">Continue with Email</Button>
-          <Button>Connect Wallet</Button>
+
+          <Button>
+            <ConnectButton />
+          </Button>
+          {/* <Button onClick={openConnectModal}>
+            Connect Wallet
+          </Button> */}
         </div>
       </DialogContent>
     </Dialog>
