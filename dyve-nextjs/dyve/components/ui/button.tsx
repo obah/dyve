@@ -24,7 +24,7 @@ const buttonVariants = cva(
           "bg-transparent px-4 py-2 text-white font-medium text-md h-4",
         auxBtn: "bg-purple-4 px-4 py-2 text-black-1 font-medium text-md",
         heroBtn:
-          "bg-purple-1 text-lg text-black-1 py-4 px-8 hover:text-white hover:bg-primary/90",
+          "bg-purple-1 text-lg text-black-1 py-4 px-8 hover:text-white hover:bg-purple-1/90",
       },
       size: {
         default: "h-[60px] px-4 py-[30px]",
