@@ -1,5 +1,6 @@
 import Accounts from "@/components/dashboard/Accounts";
 import Notification from "@/components/dashboard/Notification";
+import TransferBox from "@/components/dashboard/TransferBox";
 
 export default function Page() {
   return (
@@ -15,6 +16,8 @@ export default function Page() {
           className="w-2/3"
         >
           <Accounts />
+
+          <TransferBox />
         </div>
 
         <Notification />
