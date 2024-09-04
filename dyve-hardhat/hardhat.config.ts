@@ -4,7 +4,6 @@ import "@nomicfoundation/hardhat-toolbox";
 const { vars } = require("hardhat/config");
 
 const WALLET_PRIVATE_KEY = vars.get("WALLET_PRIVATE_KEY");
-const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
@@ -17,7 +16,6 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      sepolia: ETHERSCAN_API_KEY,
       "lisk-sepolia": "123",
     },
     customChains: [
