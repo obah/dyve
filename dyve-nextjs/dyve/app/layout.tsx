@@ -3,12 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import RainbowkitWrapper from "@/Layout/RainbowkitWrapper";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "DYVE",
-  description: "Powering your financial freedom",
+  description: "Powering financial inclusivity",
 };
 
 export default function RootLayout({
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <RainbowkitWrapper>
           <LayoutWrapper>{children}</LayoutWrapper>
+          <Toaster />
         </RainbowkitWrapper>
       </body>
     </html>

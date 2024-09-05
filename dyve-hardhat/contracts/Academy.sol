@@ -19,6 +19,8 @@ contract Academy {
     string name;
     uint dateJoined;
     bool isActive;
+    uint40 coursesEnrolled;
+    uint40 coursesCompleted;
   }
 
   mapping(address => StudentData) student;
@@ -33,6 +35,26 @@ contract Academy {
     return selectedStudent;
   }
 
+  function getCompletedCourses(address _student) external view returns (uint40){
+    StudentData memory selectedStudent = student[_student];
+
+    if(!selectedStudent.isActive) {
+      revert NotAStudent(_student);
+    }
+
+    return selectedStudent.coursesCompleted;
+  }
+
+  function getEnrolledCourses(address _student) external view returns (uint40){
+    StudentData memory selectedStudent = student[_student];
+
+    if(!selectedStudent.isActive) {
+      revert NotAStudent(_student);
+    }
+
+    return selectedStudent.coursesEnrolled;
+  }
+
   function addStudent(string memory _name, address _student) external {
      StudentData memory selectedStudent = student[_student];
 
@@ -45,6 +67,26 @@ contract Academy {
     selectedStudent.isActive = true;
 
     emit StudentAdded(_student, _name, block.timestamp);
+  }
+
+  function addCourse(address _student) external view {
+    StudentData memory selectedStudent = student[_student];
+
+    if(selectedStudent.isActive) {
+      revert StudentExist(_student);
+    }
+
+    selectedStudent.coursesEnrolled += 1;
+  }
+
+  function completeCourse(address _student) external view {
+    StudentData memory selectedStudent = student[_student];
+
+    if(selectedStudent.isActive) {
+      revert StudentExist(_student);
+    }
+
+    selectedStudent.coursesCompleted += 1;
   }
 
   function removeStudent(address _student) external {
