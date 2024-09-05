@@ -13,6 +13,8 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "hero-bg": "url('../public/assets/hero-bg.png')",
+        "eclipse-bg": "url('../public/assets/eclipse-bg.png')"
       },
       borderRadius: {
         lg: "var(--radius)",

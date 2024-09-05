@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="mt-20 flex items-center justify-center px-4">
-      <div className="flex flex-col items-center justify-between md:flex-row lg:w-11/12">
+    <div className="h-screen bg-hero-bg bg-cover bg-[right_top_300px] bg-no-repeat flex items-center justify-center px-4">
+      <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12">
         <div className="w-2/3">
           <p className="mb-4 text-center text-7xl font-bold text-white md:text-left">
             Blockchain <span className="text-purple-1">Gateway</span> to
