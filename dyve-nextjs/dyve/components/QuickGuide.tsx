@@ -6,10 +6,10 @@ const QuickGuide = () => {
     >
 
         <div
-            className='rounded-lg w-full'
+            className='bg-eclipse-bg bg-center bg-cover bg-no-repeat rounded-lg w-full'
         >
             <div
-                className='bg-background-2 p-8 text-center'
+                className='h-[200px] flex flex-col justify-center items-center bg-background-2 p-8 text-center'
             >
                 <p
                     className='text-purple-1 font-light text-xl mb-2'
@@ -25,7 +25,7 @@ const QuickGuide = () => {
             </div>
 
             <div
-                className='p-8 flex justify-center items-center '
+                className='h-[400px] p-8 flex justify-center items-center'
             >
 
                 <div

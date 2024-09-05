@@ -28,7 +28,7 @@ const Features = () => {
   ];
 
   return (
-    <div className="bg-background-2 mt-20 flex w-full items-center justify-center p-8">
+    <div className="bg-background-2 flex w-full items-center justify-center p-8">
       <div className="lg:w-11/12">
         <div className="mb-20">
           <p className="mb-2 text-xl font-light text-purple-1">

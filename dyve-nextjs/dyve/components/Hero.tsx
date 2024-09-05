@@ -5,11 +5,11 @@ import Image from 'next/image'
 const Hero = () => {
   return (
     <div
-        className='flex justify-center items-center px-4 mt-20'
+        className="h-screen bg-hero-bg bg-cover bg-[right_top_300px] bg-no-repeat flex justify-center items-center px-4"
     >
 
         <div
-            className='flex flex-row justify-between items-center lg:w-11/12'
+            className='flex flex-row justify-between items-center lg:w-11/12 pb-24'
         >
             <div
                 className='w-2/3'
