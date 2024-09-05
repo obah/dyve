@@ -28,26 +28,26 @@ const Features = () => {
   ];
 
   return (
-    <div className="bg-background-2 flex w-full items-center justify-center p-8">
+    <div className="mt-20 flex w-full items-center justify-center bg-background-2 p-8">
       <div className="lg:w-11/12">
         <div className="mb-20">
           <p className="mb-2 text-xl font-light text-purple-1">
             Empower Your Financial Future
           </p>
 
-          <p className="text-white-1 text-3xl font-normal">
+          <p className="text-3xl font-normal text-white-1">
             Transform your finance one step at a Time
           </p>
         </div>
 
         <div className="w-full">
-          <div className="mb-8 flex flex-row items-center">
+          <div className="mb-8 flex flex-col items-center md:flex-row">
             {listA.map((cur: any, idx: number) => (
               <FeaturesCard key={idx} data={cur} idx={idx} />
             ))}
           </div>
 
-          <div className="flex flex-row items-center">
+          <div className="flex flex-col items-center md:flex-row">
             {listB.map((cur: any, idx: number) => (
               <FeaturesCard key={idx} data={cur} idx={idx} />
             ))}

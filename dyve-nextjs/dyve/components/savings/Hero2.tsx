@@ -1,12 +1,12 @@
 import React from "react";
-import Image from "next/image";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
+import Link from "next/link";
 
 const Hero2 = () => {
   return (
     <div className="mt-20 flex items-center justify-center px-4">
-      <div className="flex flex-row items-center justify-between lg:w-11/12">
-        <div className="w-7/12">
+      <div className="flex flex-col items-center justify-between md:flex-row lg:w-11/12">
+        <div className="w-full text-center md:w-7/12 md:text-left">
           <p className="mb-4 text-7xl font-bold text-white">
             Start Saving, Secure Your Future
           </p>
@@ -16,18 +16,15 @@ const Hero2 = () => {
             your wealth
           </p>
 
-          <Button className="w-[200px]">Start Saving</Button>
+          <Link
+            href={"/dashboard/savings"}
+            className={`w-[200px] ${buttonVariants({ variant: "default" })}`}
+          >
+            Start Saving
+          </Link>
         </div>
 
         <div>
-          {/* <Image 
-                    src={"/assets/hero-img.png"}
-                    width={400}
-                    height={600}
-                    alt='logo'
-                    // fill={true}
-                    className='object-contain'
-                /> */}
           <img src="/assets/piggy2.png" />
         </div>
       </div>

@@ -27,7 +27,9 @@ export function ConnectionModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>{isConnected ? truncate(address!) : "Register"}</Button>
+        <Button className="h-2 px-6 py-5">
+          {isConnected ? truncate(address!) : "Register"}
+        </Button>
       </DialogTrigger>
       <DialogContent className="border-[#343B4F] bg-gradient-to-b from-purple-1/10 sm:rounded-r1">
         <DialogHeader>

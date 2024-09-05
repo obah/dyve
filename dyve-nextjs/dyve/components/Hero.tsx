@@ -5,11 +5,11 @@ import Image from "next/image";
 const Hero = () => {
   return (
     <div className="h-screen bg-hero-bg bg-cover bg-[right_top_300px] bg-no-repeat flex items-center justify-center px-4">
-      <div className="flex flex-row items-center justify-between lg:w-11/12">
+      <div className="flex flex-col md:flex-row items-center justify-between lg:w-11/12">
         <div className="w-2/3">
-          <p className="mb-4 text-7xl font-bold text-white">
-            Your <span className="text-purple-1">Gateway</span> to
-            <span className="text-purple-1"> Financial</span> Freedom
+          <p className="mb-4 text-center text-7xl font-bold text-white md:text-left">
+            Blockchain <span className="text-purple-1">Gateway</span> to
+            <span className="text-purple-1"> Financial</span> Inclusion
           </p>
 
           <p className="mb-4 text-xl font-normal text-white lg:w-7/12">
@@ -21,15 +21,12 @@ const Hero = () => {
         </div>
 
         <div className="w-1/3">
-          {/* <Image 
-                    src={"/assets/hero-img.png"}
-                    width={400}
-                    height={600}
-                    alt='logo'
-                    // fill={true}
-                    className='object-contain'
-                /> */}
-          <img src="/assets/hero-2.png" />
+          <Image
+            src="/assets/hero-2.png"
+            alt="hero image"
+            height={435}
+            width={350}
+          />
         </div>
       </div>
     </div>

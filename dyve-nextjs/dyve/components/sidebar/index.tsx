@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { NavItem } from "./navItem";
 import { Button } from "../ui/button";
@@ -5,8 +7,23 @@ import { MdArrowOutward } from "react-icons/md";
 import { FiArrowDownRight } from "react-icons/fi";
 import { AiOutlineLogout } from "react-icons/ai";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
 
 export function Sidebar({ children }: { children: React.ReactNode }) {
+  const { isDisconnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isDisconnected) {
+      router.back();
+      openConnectModal && openConnectModal();
+    }
+  }, [isDisconnected, openConnectModal, router]);
+
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[200px_1fr]">
       <div className="sticky top-0 hidden h-screen border-r border-purple-4 bg-black-background lg:block">
