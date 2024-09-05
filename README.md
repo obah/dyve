@@ -24,7 +24,8 @@
 ](https://github.com/web3papi_) [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/shegspear17)
 ](https://github.com/shegspear17 )
 
-  
+ <h2>Link to Pitch Deck:</h2> 
+    https://drive.google.com/file/d/1FOkqL36DCNymVS7DnFF7QfrVK1n2QMpT/view?usp=sharing
 
 ![Alt Text](https://i.imgur.com/8w41iAZ.png)<br/>
 
