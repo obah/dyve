@@ -1,62 +1,39 @@
-
 const QuickGuide = () => {
   return (
-    <div
-        className='w-full flex justify-center items-center p-8 mt-20'
-    >
+    <div className="mt-20 flex w-full items-center justify-center rounded-r1 p-8">
+      <div className="rounded-r1">
+        <div className="rounded-t-r1 bg-background-2 p-8 text-center">
+          <p className="mb-2 text-xl font-light text-purple-1">
+            Get Started with Ease
+          </p>
 
-        <div
-            className='rounded-lg w-full'
-        >
-            <div
-                className='bg-background-2 p-8 text-center'
-            >
-                <p
-                    className='text-purple-1 font-light text-xl mb-2'
-                >
-                    Get Started with Ease
-                </p>
-
-                <p
-                    className='text-3xl text-white-1 font-normal'
-                >
-                    Quick Guide to the plaform
-                </p>
-            </div>
-
-            <div
-                className='p-8 flex justify-center items-center '
-            >
-
-                <div
-                    className='flex flex-row justify-between items-center w-8/12'
-                >
-
-                    <div>
-                        <img src="/assets/reg.png" />
-                    </div>
-
-                    <div
-                        className="p-4 text-center w-11/12"
-                    >
-                        <p className="font-semibold text-2xl text-white-3">
-                            1. Create Your Account
-                        </p>
-                        
-                        <p className="text-white-4 font-normal text-xl" >
-                            Click on the &quot;Sign Up&quot; button to create a new account. 
-                            Fill in your personal information and choose a secure 
-                            password. Verify your email to complete the registration process.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
+          <p className="text-3xl font-normal text-white-1">
+            Quick Guide to the plaform
+          </p>
         </div>
 
-    </div>
-  )
-}
+        <div className="flex items-center justify-center p-8">
+          <div className="flex w-8/12 flex-row items-center justify-between">
+            <div>
+              <img src="/assets/reg.png" />
+            </div>
 
-export default QuickGuide
+            <div className="w-11/12 p-4 text-center">
+              <p className="text-2xl font-semibold text-white-3">
+                1. Create Your Account
+              </p>
+
+              <p className="text-xl font-normal text-white-4">
+                Click on the &quot;Sign Up&quot; button to create a new account.
+                Fill in your personal information and choose a secure password.
+                Verify your email to complete the registration process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default QuickGuide;
