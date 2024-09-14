@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "@synthetixio/contracts": "^1.2.3"
+    "@synthetixio/contracts": "^1.2.3",
+    "dotenv": "^16.4.5"
   }
 }

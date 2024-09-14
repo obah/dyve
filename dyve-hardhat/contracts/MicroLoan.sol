@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "./interfaces/IERC20";
+import "./interfaces/IERC20.sol";
 
 contract MicroLoan {
 
