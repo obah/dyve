@@ -1,184 +1,376 @@
-  
+# Dyve - The Blockchain Gateway to Financial Inclusion and Financial Literacy
 
-# Dyve - The Blockchain Gateway to Financial Inclusion and Financial Literacy.
+![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)
+![GitHub issues](https://img.shields.io/github/issues/Olanetsoft/awesome-hackathon-projects?style=plastic)
+![GitHub forks](https://img.shields.io/github/forks/Olanetsoft/awesome-hackathon-projects?style=plastic)
+![GitHub stars](https://img.shields.io/github/stars/Olanetsoft/awesome-hackathon-projects?style=plastic)
+![GitHub watchers](https://img.shields.io/github/watchers/Olanetsoft/awesome-hackathon-projects?style=plastic&label=Watch)
 
-  
+---
 
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+## Table of Contents
 
-[![GitHub issues](https://img.shields.io/github/issues/Olanetsoft/awesome-hackathon-projects?style=plastic)](https://github.com/obah/dyve/issues)
+- [Dyve - The Blockchain Gateway to Financial Inclusion and Financial Literacy](#dyve---the-blockchain-gateway-to-financial-inclusion-and-financial-literacy)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Meet the Developers](#meet-the-developers)
+  - [Smart Contracts](#smart-contracts)
+    - [DyveToken](#dyvetoken)
+      - [Key Features](#key-features)
+      - [Contract Code](#contract-code)
+    - [MicroLoan](#microloan)
+      - [Key Features](#key-features-1)
+    - [MockUsdt](#mockusdt)
+      - [Key Features](#key-features-2)
+      - [Contract Code](#contract-code-1)
+  - [Deployment Addresses](#deployment-addresses)
+  - [Features](#features)
+    - [Dyve Learning Platform](#dyve-learning-platform)
+      - [Key Components](#key-components)
+    - [Dyve Savings Platform](#dyve-savings-platform)
+      - [Key Components](#key-components-1)
+    - [Dyve MicroLoan Platform](#dyve-microloan-platform)
+      - [Key Components](#key-components-2)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-[![GitHub forks](https://img.shields.io/github/forks/Olanetsoft/awesome-hackathon-projects?style=plastic)](https://github.com/obah/dyve)
+---
 
-[![GitHub stars](https://img.shields.io/github/stars/Olanetsoft/awesome-hackathon-projects?style=plastic)](https://github.com/obah/dyves)
+## Introduction
 
-[![GitHub watchers](https://img.shields.io/github/watchers/Olanetsoft/awesome-hackathon-projects?style=plastic&label=Watch)](https://github.com/obah/dyve)
+Welcome to **Dyve**!
 
-  
+At **Dyve**, we recognize that financial inclusion remains a pressing challenge in today's world. Many individuals, particularly in underserved and developing regions, face significant barriers to accessing essential financial services. These barriers include limited access to traditional banking, high transaction costs, lack of financial literacy, and inadequate opportunities for savings and credit.
 
-**``Meet The Developers:``**
+Our innovative blockchain-based ecosystem is designed specifically to address these issues head-on. We offer a suite of services aimed at enhancing financial inclusion and literacy:
 
-[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/jeremiahDSamuel)
-](https://github.com/jeremiahDSamuel)[![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/Oba_Ddev)
-](https://github.com/Oba_Ddev) [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/web3papi_)
-](https://github.com/web3papi_) [![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/shegspear17)
-](https://github.com/shegspear17 )
+1. **Dyve Learning Platform**
+2. **Dyve Savings Platform**
+3. **Dyve MicroLoan Platform**
 
-  
+---
 
-![Alt Text](https://i.imgur.com/8w41iAZ.png)<br/>
+## Meet the Developers
 
-<h2>Introduction to Dyve</h2>
+[![Twitter Follow](https://img.shields.io/twitter/follow/jeremiahDSamuel?style=social)](https://twitter.com/jeremiahDSamuel)
+[![GitHub Follow](https://img.shields.io/github/followers/jeremiahDSamuel?label=Follow&style=social)](https://github.com/jeremiahDSamuel)
 
-<p>Welcome to <strong>Dyve</strong>!!! At <strong>Dyve</strong>, we recognize that financial inclusion remains a pressing challenge in today's world. Many individuals, particularly in underserved and developing regions, face significant barriers to accessing essential financial services. These barriers include limited access to traditional banking, high transaction costs, lack of financial literacy, and inadequate opportunities for savings and credit.
+[![Twitter Follow](https://img.shields.io/twitter/follow/Oba_Ddev?style=social)](https://twitter.com/Oba_Ddev)
+[![GitHub Follow](https://img.shields.io/github/followers/Oba-Ddev?label=Follow&style=social)](https://github.com/Oba-Ddev)
 
-  
+[![Twitter Follow](https://img.shields.io/twitter/follow/web3papi_?style=social)](https://twitter.com/web3papi_)
+[![GitHub Follow](https://img.shields.io/github/followers/web3papi?label=Follow&style=social)](https://github.com/web3papi)
 
-Our innovative blockchain-based ecosystem is designed specifically to address these issues head-on. At Dyve, we solve the existing issues by the provision of the following services on the Dyve platform: </p>
+[![Twitter Follow](https://img.shields.io/twitter/follow/shegspear17?style=social)](https://twitter.com/shegspear17)
+[![GitHub Follow](https://img.shields.io/github/followers/shegspear17?label=Follow&style=social)](https://github.com/shegspear17)
 
-<ol>
+---
 
-<li><strong>Dyve Ac :</strong>
+## Smart Contracts
 
-We offer curated courses, tailored with multilingual support, that demystify complex topics on blockchain technology and financial education. These courses are available in the user’s preferred native language, covering web3 and financial investments. Progress is tracked, and certifications are issued via soulbound tokens (SBTs).
+Our platform utilizes several smart contracts to facilitate its services. Below is an overview of each contract and its functionality.
 
-</li>
+### DyveToken
 
-<li><strong>Dyve Savings:</strong>
+The `DyveToken` contract is an ERC20 token implementation representing the native token of the Dyve platform, called **DYV**.
 
-We emphasize on the importance of savings and investment to our users, while offering opportunity for users to save/stake funds (ETH, stablecoins, or fiat) and earn returns in the native Dive Token (DIV).
+- **Symbol**: DYV
+- **Decimals**: 2
+- **Max Supply**: 500,000,000 DYV
 
-</li>
+#### Key Features
 
-<li><strong>Dyve Microloan services:</strong>
+- **Minting**: Allows the owner to mint new tokens up to the maximum supply.
+- **Burning**: Enables users to burn their tokens, reducing the total supply.
+- **Events**:
+  - `TokenMinted`: Emitted when tokens are minted.
+  - `TokenBurnt`: Emitted when tokens are burned.
 
-To break the barrier to accessing loans, we offer opportunities for users secure microloans with collateral, so as to ensure access to financial resources.
+#### Contract Code
 
-</li>
+```solidity
+// SPDX-License-Identifier: MIT 
+pragma solidity ^0.8.24;
 
-</ol>
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-<h1>A Deep Dive into How Our Services Work.</h2>
+contract DyveToken is ERC20("Dyve", "DYV") {
+    error MaxSupply();
 
-## **Dive Learning Platform:**
+    event TokenMinted(uint indexed amount, address indexed account, uint time);
+    event TokenBurnt(uint indexed amount, uint time);
 
-![Alt Text](https://i.imgur.com/qtFzpMT.png)
-The DIVE Learning Platform is a core component of our ecosystem, designed to provide high-quality education on blockchain technology and financial investments. Here’s how it operates:
+    address immutable OWNER;
+    uint256 public constant MAX_SUPPLY = 500_000_000 * 10**2;
 
-  
+    constructor() {
+        OWNER = msg.sender;
+    }
 
-#### **Curated Educational Content**
+    function mint(address _to, uint256 _amount) public {
+        if(totalSupply() + _amount >= MAX_SUPPLY) {
+            revert MaxSupply();
+        }
+        _mint(_to, _amount);
+        emit TokenMinted(_amount, _to, block.timestamp);
+    }
 
-  
+    function burn(uint40 _amount) public {
+        _burn(msg.sender, _amount);
+        emit TokenBurnt(_amount, block.timestamp);
+    }
 
--  **Course Offerings**: Our platform provides a range of curated courses focusing on web3 technology and financial investments. Courses are designed for various skill levels, from beginners to advanced users.
+    function decimals() public pure override returns (uint8) {
+        return 2;
+    }
+}
+```
 
--  **Multilingual Support**: To cater to a diverse audience, courses are available in multiple languages, ensuring that users can learn in their preferred language and at their own pace.
+---
 
-  
+### MicroLoan
 
-#### **Progress Tracking and Certification**
+The `MicroLoan` contract facilitates microloan services within the Dyve ecosystem.
 
-  
+#### Key Features
 
--  **Smart Contract Integration**: The platform uses smart contracts to track user progress, including course completion and assessment scores. This ensures an accurate and tamper-proof record of learning achievements.
+- **Loan Provision**: Allows users to supply funds to the loan pool and earn yield.
+- **Borrowing**: Users can borrow funds by depositing collateral.
+- **Repayment**: Borrowers can repay loans, and if defaulted, collateral is liquidated.
+- **Interest Rates**: The owner can set the borrowers' interest rate and providers' yield rate.
+- **Events**: Various events for deposit, loan supply, borrowing, repayment, liquidation, etc.
 
--  **Soulbound Tokens (SBTs)**: Upon successful completion of a course, users receive soulbound tokens (SBTs) as a certification of their achievements. SBTs are non-transferable and permanently linked to the user’s wallet, ensuring the authenticity and non-tradability of credentials.
 
--  **Learn-and-Earn Model**: As an added incentive, users are rewarded with DIV tokens upon completing courses. This model encourages active participation and learning, while integrating the rewards system into the broader DIVE ecosystem.
+---
 
-  
+### MockUsdt
 
-#### **User Experience**
+The `MockUsdt` contract is a mock implementation of the USDT token, used for testing purposes within the Dyve platform.
 
-  
+- **Symbol**: dUSDT
+- **Decimals**: 2
 
--  **Course Enrollment**: Users can easily browse and enroll in courses via an intuitive interface. The platform provides a seamless learning experience with access to course materials, assessments, and progress updates.
+#### Key Features
 
--  **Certification and Rewards**: On completing a course, users receive their SBTs and DIV token rewards directly in their wallet, demonstrating their newly acquired skills and knowledge.
+- **Minting**: Allows minting of mock USDT tokens.
+- **Burning**: Enables burning of mock USDT tokens.
 
-  
+#### Contract Code
 
-## **Dyve Savings Platform:**
+```solidity
+// SPDX-License-Identifier: MIT 
+pragma solidity ^0.8.24;
 
-![Alt Text](https://i.imgur.com/1nyTgsi.png)
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-The **DYVE** ecosystem’s Savings Platform is designed to provide users with a flexible and rewarding savings experience, accommodating various currencies and promoting responsible financial habits. Here’s how it works:
+contract MockUsdt is ERC20("DyveUSDT", "dUSDT") {
+    constructor() {
+        _mint(msg.sender, 100000000);
+    }
 
-  
+    function mint(address to, uint256 amount) public {
+        _mint(to, amount);
+    }
 
-#### **Flexible Savings Options**
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
 
-  
+    function decimals() public pure override returns (uint8) {
+        return 2;
+    }
+}
+```
 
--  **Currency Support**: Users can deposit a wide range of currencies, including fiat, cryptocurrencies, and stablecoins. This flexibility ensures that users can manage their savings in the form they prefer or find most convenient.
+---
 
--  **Staking Mechanism**: Once funds are deposited, they can be staked for a specified period. The platform supports multiple staking durations, allowing users to choose terms that best fit their financial goals and needs.
+## Deployment Addresses
 
--  **Returns in DIV**: Upon completion of the staking period, users receive their returns in Dive Token (DIV). This incentivizes participation and aligns with the overall ecosystem, as DIV is used across the Learning, Savings, and Crowdfunding platforms.
+The smart contracts have been deployed on the **Lisk Mainnet** and **Lisk Testnet**. Please find the deployment addresses below:
 
-  
+- **DyveToken**:
+  - Mainnet: [[0x223b2DdbF57493ED5B0bC5FeB8d6660fbB698f0C](https://blockscout.lisk.com/address/0x223b2DdbF57493ED5B0bC5FeB8d6660fbB698f0C#code)](#)
+  - Testnet: [[0xa376A2Fc019402AaDf31A2Ff35DC7076f7bD6e54](https://sepolia-blockscout.lisk.com/address/0xa376A2Fc019402AaDf31A2Ff35DC7076f7bD6e54)](#)
+  - 
+- **MicroLoan**:
+  - Mainnet: [https://blockscout.lisk.com/address/0xC7D3CBF0DAcd588269A887bC14A6339221B8b20a#code](#)
+  - Testnet: [[0x6A453261147298C063AF40c618B0d86a36b8EC17](https://sepolia-blockscout.lisk.com/address/0x6A453261147298C063AF40c618B0d86a36b8EC17)](#)
+  - 
+- **DYVSave**:
+  - Mainnet: [[0xb2F2A39fB5e334f78C3Ea76E0A53e5C3c8C12542](https://blockscout.lisk.com/address/0xb2F2A39fB5e334f78C3Ea76E0A53e5C3c8C12542#code)](#)
+  - Testnet: [[0xe06d39562bB02Aa92a3c55495Ef3dFb27f679f83](https://sepolia-blockscout.lisk.com/address/0xe06d39562bB02Aa92a3c55495Ef3dFb27f679f83)](#)
+  - 
+- **MockUsdt**:
+  - Mainnet: [[0x2913ba4D9d925BC05006F529eEcb96D0BAd9C6D3](https://blockscout.lisk.com/address/0x2913ba4D9d925BC05006F529eEcb96D0BAd9C6D3#code)](#)
+  - Testnet: [ [0xb4EDe51F8AE62D14A18b9609e3EF12d1B6542e13](https://sepolia-blockscout.lisk.com/address/0xb4EDe51F8AE62D14A18b9609e3EF12d1B6542e13)](#)
+  - 
+- **Academy**:
+  - Mainnet: [[0x2D6524f95c9Be9Aa9FdD89f860D93165F92C23B0](https://blockscout.lisk.com/address/0x2D6524f95c9Be9Aa9FdD89f860D93165F92C23B0#code)](#)
+  - Testnet: [[0x1bF3c9E916a56a7bD22ef9ccd7343Cf8C1Ac039c](https://sepolia-blockscout.lisk.com/address/0x1bF3c9E916a56a7bD22ef9ccd7343Cf8C1Ac039c)](#)
 
-#### **On-Ramp Integration**
+---
 
-  
+## Features
 
--  **Ease of Deposit**: To facilitate smooth onboarding, the Savings Platform integrates with on-ramp services like MoonPay or YellowPay. This integration simplifies the process for new users by enabling easy deposits of fiat or cryptocurrency directly into the platform.
+### Dyve Learning Platform
 
-  
+![Learning Platform](https://i.imgur.com/qtFzpMT.png)
 
-#### **User Experience and Dashboard**
+The **Dyve Learning Platform** is designed to provide high-quality education on blockchain technology and financial investments.
 
-  
+#### Key Components
 
--  **Intuitive Interface**: The platform features a user-friendly dashboard where individuals can view their deposited amounts, staking periods, and accumulated returns. This transparency helps users monitor their investments and make informed decisions.
+- **Curated Educational Content**:
+  - Courses on web3 technology and financial investments.
+  - Multilingual support for diverse audiences.
 
--  **Capital and Returns Management**: Users can withdraw their original capital and earned returns separately. This separation ensures clarity and control over their funds, allowing for flexible financial management.
+- **Progress Tracking and Certification**:
+  - Smart contract integration for tracking progress.
+  - Soulbound Tokens (SBTs) as certifications.
+  - Learn-and-Earn model rewarding users with DYV tokens.
 
-  
+- **User Experience**:
+  - Intuitive course enrollment.
+  - Direct receipt of certifications and rewards to user wallets.
 
-#### **Cultivating Responsible Spending Habits**
+### Dyve Savings Platform
 
-  
+![Savings Platform](https://i.imgur.com/1nyTgsi.png)
 
--  **Educational Integration**: The Savings Platform is not just about saving and earning returns. It’s an integral part of our broader mission to promote financial literacy and responsible spending. As part of the DIVE curriculum, we emphasize the importance of cultivating a cultured spending habit.
+The **Dyve Savings Platform** offers users a flexible and rewarding savings experience.
 
--  **Curriculum Focus**: Our educational courses cover various aspects of financial management, including budgeting, investing, and responsible spending. By integrating these principles into our savings platform, we aim to provide users with the tools and knowledge needed to manage their finances effectively and sustainably.
+#### Key Components
 
-  
+- **Flexible Savings Options**:
+  - Support for fiat, cryptocurrencies, and stablecoins.
+  - Staking mechanism with various durations.
+  - Returns in DYV tokens.
 
-## **Dyve MicroLoan Platform:**
+- **On-Ramp Integration**:
+  - Integration with services like MoonPay or YellowPay for easy deposits.
 
-![Alt Text](https://i.imgur.com/8ZdkCJ5.png)
+- **User Experience and Dashboard**:
+  - User-friendly dashboard for monitoring savings.
+  - Separate withdrawal options for capital and returns.
 
-The DIVE Microloan Platform is designed to provide users with accessible microloans, supported by blockchain technology and secured by digital assets. This platform aims to offer flexible, efficient, and transparent loan solutions. Here’s an overview of how it works:
+- **Cultivating Responsible Spending Habits**:
+  - Educational integration emphasizing financial management.
+  - Courses on budgeting, investing, and responsible spending.
 
-  
+### Dyve MicroLoan Platform
 
-#### **Microloan Features**
+![MicroLoan Platform](https://i.imgur.com/8ZdkCJ5.png)
 
-  
+The **Dyve MicroLoan Platform** provides users with accessible microloans, secured by digital assets.
 
--  **Automated Loan Issuance**: Users can apply for microloans through a streamlined, automated process. The platform facilitates loan issuance based on user inputs and collateral security.
+#### Key Components
 
--  **Collateral Security**: Loans are secured by digital assets such as NFTs or other blockchain-based assets. Users must stake collateral to qualify for a loan, ensuring that the loan is backed by tangible value.
+- **Microloan Features**:
+  - Automated loan issuance with collateral security.
+  - Flexible repayment options in various currencies.
 
--  **Flexible Repayment**: Loans can be repaid using various cryptocurrencies or fiat. The platform supports flexible repayment schedules, allowing users to choose terms that suit their financial situation.
+- **User Experience**:
+  - Streamlined loan application process.
+  - Collateral management through an intuitive dashboard.
+  - Automated repayment and liquidation processes.
 
-  
+- **Educational Integration**:
+  - Resources on responsible borrowing and collateral management.
 
-#### **User Experience**
+---
 
-  
+## Getting Started
 
--  **Loan Application**: Users initiate the loan process by staking their chosen collateral and specifying the desired loan amount and repayment terms. The platform automates the approval and disbursement of the loan, depositing funds directly into the user’s wallet.
+### Prerequisites
 
--  **Collateral Management**: Users can manage their collateral and monitor the status of their loan through an intuitive dashboard. The platform provides clear information on the amount staked, loan balance, repayment progress, and other relevant details.
+- **Node.js** and **npm** installed.
+- **Hardhat** for smart contract deployment.
+- **MetaMask** or any Ethereum-compatible wallet.
+- Access to the **Lisk Mainnet** or **Lisk-sepolia Testnet**.
 
--  **Repayment and Liquidation**: Users are responsible for repaying the loan within the agreed timeframe. If a user defaults, the staked collateral is subject to liquidation to cover the outstanding loan amount. This process is automated to ensure transparency and efficiency.
+### Installation
 
-  
+1. **Clone the Repository**
 
-#### **Educational Integration**
+   ```bash
+   git clone https://github.com/obah/dyve.git
+   ```
 
--  **Financial Literacy Emphasis**: In alignment with the DIVE mission to enhance financial literacy, the Microloan Platform includes educational resources on responsible borrowing, collateral management, and repayment strategies. This helps users make informed decisions and manage their finances more effectively.
+2. **Install Dependencies**
+
+   ```bash
+   cd dyve
+   cd dyve-hardhat
+   npm install
+   ```
+
+3. **Compile Smart Contracts**
+
+   ```bash
+   npx hardhat compile
+   ```
+
+4. **Deploy Smart Contracts**
+
+   Update the deployment script with your configurations and run:
+
+   ```bash
+   npx hardhat deploy ignition ./ignition/modules/<your_script.ts> --network lisk-sepolia
+   ```
+
+---
+
+## Usage
+
+- **Interacting with DyveToken**
+
+  - Minting and burning tokens.
+  - Checking balances and transferring DYV tokens.
+
+- **Using the MicroLoan Platform**
+
+  - Supplying funds to the loan pool.
+  - Borrowing loans by depositing collateral.
+  - Repaying loans and withdrawing yields.
+
+- **Engaging with the MockUsdt**
+
+  - Minting mock USDT for testing.
+  - Simulating transactions within the Dyve ecosystem.
+
+---
+
+## Contributing
+
+We welcome contributions from the community. Please follow these steps:
+
+1. **Fork the Repository**
+
+2. **Create a Feature Branch**
+
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+
+3. **Commit Your Changes**
+
+   ```bash
+   git commit -m "Add Your Feature"
+   ```
+
+4. **Push to the Branch**
+
+   ```bash
+   git push origin feature/YourFeature
+   ```
+
+5. **Open a Pull Request**
+
+
+## License
+
+This project is licensed under the **MIT License**.
