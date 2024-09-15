@@ -23,7 +23,7 @@
     - [MockUsdt](#mockusdt)
       - [Key Features](#key-features-2)
       - [Contract Code](#contract-code-1)
-  - [Deployment Addresses](#deployment-addresses)
+  - [Deployment Addresses & Links](#deployment-addresses-&-links)
   - [Features](#features)
     - [Dyve Learning Platform](#dyve-learning-platform)
       - [Key Components](#key-components)
@@ -189,7 +189,7 @@ contract MockUsdt is ERC20("DyveUSDT", "dUSDT") {
 
 ---
 
-## Deployment Addresses
+## Deployment Addresses & Links
 
 The smart contracts have been deployed and verified on the **Lisk Mainnet** and **Lisk Testnet**. Please find the deployment addresses below:
 
@@ -212,6 +212,8 @@ The smart contracts have been deployed and verified on the **Lisk Mainnet** and 
 - **Academy**:
   - Mainnet: [[0x2D6524f95c9Be9Aa9FdD89f860D93165F92C23B0](https://blockscout.lisk.com/address/0x2D6524f95c9Be9Aa9FdD89f860D93165F92C23B0#code)](#)
   - Testnet: [[0x1bF3c9E916a56a7bD22ef9ccd7343Cf8C1Ac039c](https://sepolia-blockscout.lisk.com/address/0x1bF3c9E916a56a7bD22ef9ccd7343Cf8C1Ac039c)](#)
+ 
+- **Link to live website**: https://dyve.vercel.app/
 
 ---
 
