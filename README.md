@@ -23,7 +23,7 @@
     - [MockUsdt](#mockusdt)
       - [Key Features](#key-features-2)
       - [Contract Code](#contract-code-1)
-  - [Deployment Addresses & Links](#deployment-addresses-&-links)
+  - [Deployment Addresses & Links](#deployment-addresses--links)
   - [Features](#features)
     - [Dyve Learning Platform](#dyve-learning-platform)
       - [Key Components](#key-components)
