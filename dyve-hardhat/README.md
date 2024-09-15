@@ -57,17 +57,18 @@ Our innovative blockchain-based ecosystem is designed specifically to address th
 ## Meet the Developers
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/jeremiahDSamuel?style=social)](https://twitter.com/jeremiahDSamuel)
-[![GitHub Follow](https://img.shields.io/github/followers/jeremiahDSamuel?label=Follow&style=social)](https://github.com/jeremiahDSamuel)
+[![GitHub Follow](https://img.shields.io/github/followers/livinalt?label=Follow&style=social)](https://github.com/livinalt)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/Oba_Ddev?style=social)](https://twitter.com/Oba_Ddev)
-[![GitHub Follow](https://img.shields.io/github/followers/Oba-Ddev?label=Follow&style=social)](https://github.com/Oba-Ddev)
+[![GitHub Follow](https://img.shields.io/github/followers/obah?label=Follow&style=social)](https://github.com/obah)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/web3papi_?style=social)](https://twitter.com/web3papi_)
-[![GitHub Follow](https://img.shields.io/github/followers/web3papi?label=Follow&style=social)](https://github.com/web3papi)
+[![GitHub Follow](https://img.shields.io/github/followers/Olawalesegun?label=Follow&style=social)](https://github.com/Olawalesegun)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/shegspear17?style=social)](https://twitter.com/shegspear17)
-[![GitHub Follow](https://img.shields.io/github/followers/shegspear17?label=Follow&style=social)](https://github.com/shegspear17)
+[![GitHub Follow](https://img.shields.io/github/followers/shegspear?label=Follow&style=social)](https://github.com/shegspear)
 
+[![GitHub Follow](https://img.shields.io/github/followers/Edoscoba?label=Follow&style=social)](https://github.com/Edoscoba)
 ---
 
 ## Smart Contracts
