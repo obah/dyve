@@ -196,19 +196,19 @@ The smart contracts have been deployed and verified on the **Lisk Mainnet** and 
 - **DyveToken**:
   - Mainnet: [[0x223b2DdbF57493ED5B0bC5FeB8d6660fbB698f0C](https://blockscout.lisk.com/address/0x223b2DdbF57493ED5B0bC5FeB8d6660fbB698f0C#code)](#)
   - Testnet: [[0xa376A2Fc019402AaDf31A2Ff35DC7076f7bD6e54](https://sepolia-blockscout.lisk.com/address/0xa376A2Fc019402AaDf31A2Ff35DC7076f7bD6e54)](#)
-  - 
+    
 - **MicroLoan**:
   - Mainnet: [[0xC7D3CBF0DAcd588269A887bC14A6339221B8b20a](https://blockscout.lisk.com/address/0xC7D3CBF0DAcd588269A887bC14A6339221B8b20a#code)](#)
   - Testnet: [[0x6A453261147298C063AF40c618B0d86a36b8EC17](https://sepolia-blockscout.lisk.com/address/0x6A453261147298C063AF40c618B0d86a36b8EC17)](#)
-  - 
+    
 - **DYVSave**:
   - Mainnet: [[0xb2F2A39fB5e334f78C3Ea76E0A53e5C3c8C12542](https://blockscout.lisk.com/address/0xb2F2A39fB5e334f78C3Ea76E0A53e5C3c8C12542#code)](#)
   - Testnet: [[0xe06d39562bB02Aa92a3c55495Ef3dFb27f679f83](https://sepolia-blockscout.lisk.com/address/0xe06d39562bB02Aa92a3c55495Ef3dFb27f679f83)](#)
-  - 
+    
 - **MockUsdt**:
   - Mainnet: [[0x2913ba4D9d925BC05006F529eEcb96D0BAd9C6D3](https://blockscout.lisk.com/address/0x2913ba4D9d925BC05006F529eEcb96D0BAd9C6D3#code)](#)
   - Testnet: [ [0xb4EDe51F8AE62D14A18b9609e3EF12d1B6542e13](https://sepolia-blockscout.lisk.com/address/0xb4EDe51F8AE62D14A18b9609e3EF12d1B6542e13)](#)
-  - 
+    
 - **Academy**:
   - Mainnet: [[0x2D6524f95c9Be9Aa9FdD89f860D93165F92C23B0](https://blockscout.lisk.com/address/0x2D6524f95c9Be9Aa9FdD89f860D93165F92C23B0#code)](#)
   - Testnet: [[0x1bF3c9E916a56a7bD22ef9ccd7343Cf8C1Ac039c](https://sepolia-blockscout.lisk.com/address/0x1bF3c9E916a56a7bD22ef9ccd7343Cf8C1Ac039c)](#)
