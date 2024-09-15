@@ -191,14 +191,14 @@ contract MockUsdt is ERC20("DyveUSDT", "dUSDT") {
 
 ## Deployment Addresses
 
-The smart contracts have been deployed on the **Lisk Mainnet** and **Lisk Testnet**. Please find the deployment addresses below:
+The smart contracts have been deployed and verified on the **Lisk Mainnet** and **Lisk Testnet**. Please find the deployment addresses below:
 
 - **DyveToken**:
   - Mainnet: [[0x223b2DdbF57493ED5B0bC5FeB8d6660fbB698f0C](https://blockscout.lisk.com/address/0x223b2DdbF57493ED5B0bC5FeB8d6660fbB698f0C#code)](#)
   - Testnet: [[0xa376A2Fc019402AaDf31A2Ff35DC7076f7bD6e54](https://sepolia-blockscout.lisk.com/address/0xa376A2Fc019402AaDf31A2Ff35DC7076f7bD6e54)](#)
   - 
 - **MicroLoan**:
-  - Mainnet: [https://blockscout.lisk.com/address/0xC7D3CBF0DAcd588269A887bC14A6339221B8b20a#code](#)
+  - Mainnet: [[0xC7D3CBF0DAcd588269A887bC14A6339221B8b20a](https://blockscout.lisk.com/address/0xC7D3CBF0DAcd588269A887bC14A6339221B8b20a#code)](#)
   - Testnet: [[0x6A453261147298C063AF40c618B0d86a36b8EC17](https://sepolia-blockscout.lisk.com/address/0x6A453261147298C063AF40c618B0d86a36b8EC17)](#)
   - 
 - **DYVSave**:
