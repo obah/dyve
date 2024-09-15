@@ -136,31 +136,4 @@ contract DyvHighStake {
             }
         }
     }
-
-    // function depositIntoMicroLoan(uint256 amount, address fromThisUser) external {
-    //     if (fromThisUser == address(0)) {
-    //         revert AddressZeroDetected();
-    //     }
-    //     if (msg.sender != address(microLoanContractAddress)) {
-    //         revert YouAreNotAllowedToCallThisFunction();
-    //     }
-    //     if (stakingPool[fromThisUser].length == 0) {
-    //         revert ThisUserDoesNotExist();
-    //     }
-    //     uint256 totalAmountStaked = 0;
-    //     for (uint256 i = 0; i < stakingPool[fromThisUser].length; i++) {
-    //         totalAmountStaked += stakingPool[fromThisUser][i].amountStaked;
-    //     }
-    //     if (amount > totalAmountStaked) {
-    //         revert ThisUserDoesNotHaveThisAmount();
-    //     }
-    //     IERC20 token = IERC20(usdtStakedAddress);
-    //     require(
-    //         token.transferFrom(fromThisUser, address(microLoanContractAddress), amount),
-    //         "Transfer to Savings failed"
-    //     );
-    //     // This Needs to be implemented in the MicroLoan
-    //     microLoanContractAddress.depositFromSavings(amount);
-    //     reduceStakingAmount(fromThisUser, amount);
-    // }
 }
