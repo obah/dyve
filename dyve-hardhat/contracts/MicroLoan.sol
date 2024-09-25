@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "./interfaces/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract MicroLoan {
 
@@ -11,7 +11,7 @@ contract MicroLoan {
     uint256 private nextBorrowerId = 1; 
     uint256 private nextLoanGiverId = 1;
     uint256 public maxBorrowAmount;
-    uint256 minReserve = 10_000 * 10**2; // 10,000 tokens 
+    uint256 public minReserve = 10_000 * 10**2; // 10,000 tokens the minimum reserve in the pool
 
     address public owner;
     address public mockUSDT;
