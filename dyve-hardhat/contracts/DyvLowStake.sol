@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.24;
 
-// import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./MicroLoan.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract DyvLowStake {
 
@@ -17,7 +16,6 @@ contract DyvLowStake {
 
     address public owner;
     address public tokenAddress;
-    // MicroLoan public microLoanContractAddress;
     
     constructor(address _tokenAddress) {
         if (_tokenAddress == address(0)) {

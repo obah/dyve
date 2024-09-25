@@ -2,16 +2,13 @@
 
 pragma solidity ^0.8.24;
 
-// import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./MicroLoan.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract DyvHighStake {
     address public owner;
     uint256 public durationOfStake;
     address public usdtStakedAddress;
     uint256 public weeklyStakeFund;
-
-    // MicroLoan public microLoanContractAddress;
 
     struct Stakers {
         uint256 amountStaked;
@@ -27,7 +24,6 @@ contract DyvHighStake {
     constructor(address _stakedTokenAddress) {
         owner = msg.sender;
         usdtStakedAddress = _stakedTokenAddress;
-        // microLoanContractAddress = MicroLoan(_microLoanContractAddress);
     }
 
     error YouCantStakeAtDeadline();
