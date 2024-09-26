@@ -4,4 +4,3 @@ export const lisk_sepolia_testnet_deployments = {
   LOWSAVE_CONTRACT: "",
   CERTIFICATE_CONTRACT: "0x4F418f83Dc3ebC72BD3b721Ec7b91B7dE23f8AC0",
 };
-// NEXT_PUBLIC_PROJECT_ID="c2079da7548f06d9d16b908644ed1c92"
