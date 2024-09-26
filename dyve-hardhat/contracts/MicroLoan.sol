@@ -14,7 +14,9 @@ contract MicroLoan {
     uint256 public minReserve = 10_000 * 10**2; // 10,000 tokens the minimum reserve in the pool
 
     address public owner;
+    address public USDT;
     address public mockUSDT;
+    address public dyveToken;
 
     struct LoanProvider {
         address providerAddress;
@@ -22,6 +24,13 @@ contract MicroLoan {
         uint256 timeProvided;
         uint256 amountWithdrawn;
         uint256 yieldAccrued;
+    }
+
+    struct LoanPool{
+        uint256 poolBalance;
+        uint256 interestRate;
+        uint256 totalCollaeralLocked;
+        uint256 numberOfLoanProviders;
     }
 
     struct Borrower {
@@ -35,6 +44,9 @@ contract MicroLoan {
         uint256 amountRepaid;
     }
 
+    mapping(address => uint256) public LoanAccountUSDTBalances;
+    mapping(address => uint256) public LoanAccountDyveBalances;
+
     mapping(address => LoanProvider) public providers;
     mapping(uint256 => LoanProvider) public numberOfProviders; 
     mapping(uint256 => Borrower) public borrowers;
@@ -44,16 +56,17 @@ contract MicroLoan {
     mapping(address => bool) public hasBorrowed;
 
 
-    event Deposit(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
+    event Deposit(address indexed provider, uint256 indexed amount, address indexed tokenType, uint256 timestamp);
     event Transfer(address indexed DyvLowStake, uint256 indexed amount, uint256 indexed timestamp);
 
-    event LoanSupplied(address indexed provider, uint256 indexed amount, uint256 indexed timestamp);
+    event LoanSupplied(address indexed provider, uint256 indexed amount, address indexed choice,  uint256 timestamp);
     event CollateralDeposited(uint256 indexed borrowerId, address indexed borrower, uint256 collateralAmount, uint256 timestamp);
     event LoanBorrowed(uint256 indexed borrowerId, address indexed borrower, uint256 amount, uint256 collateralAmount, uint256 paybackTime, uint256 timestamp);
     event YieldCalculated(address indexed provider, uint256 indexed yieldAmount, uint256 indexed timestamp);
+    event YieldWithdrawn(address indexed provider, uint256 totalAmount, uint256 yieldWithdrawn, uint256 timestamp);
     event LoanRepaid(uint256 indexed borrowerId, address indexed borrower, uint256 amountRepaid, uint256 remainingBalance, uint256 timestamp);
     event LoanLiquidated(uint256 indexed borrowerId, address indexed borrower, uint256 collateralAmount, uint256 loanAmount, uint256 timestamp);
-    event YieldWithdrawn(address indexed provider, uint256 indexed amountWithdrawn, uint256 indexed timestamp);
+    event LoanWithdrawn(address indexed provider, uint256 indexed amountWithdrawn, address indexed tokenAddress, uint256 timestamp);
     event BorrowersInterestRateSet(uint256 indexed newRate, uint256 indexed timestamp);
     event ProvidersYieldRateSet(uint256 indexed newRate, uint256 indexed timestamp);
     event MaxBorrowAmountSet(uint256 indexed newAmount, uint256 indexed timestamp);
@@ -64,42 +77,80 @@ contract MicroLoan {
         _;
     }
 
-    constructor(address _mockUSDT, uint256 _minReserve) {
+    constructor(address _dyveToken, address _USDT, uint256 _minReserve) {
         owner = msg.sender;
-        mockUSDT = _mockUSDT;
+        dyveToken = _dyveToken;
+        USDT = _USDT;
         minReserve = _minReserve;
     }
 
-    function depositToLoan(uint256 amount) external {
-        IERC20 token = IERC20(mockUSDT);
+    enum TokenChoice {dyveToken, USDT }
+
+
+    function depositToLoan(uint256 amount, TokenChoice _choice) external {
+        address tokenAddress;
         
+      
+        if (_choice == TokenChoice.dyveToken) {
+            tokenAddress = dyveToken;
+            LoanAccountDyveBalances[msg.sender] += amount;
+        } 
+        
+        else if (_choice == TokenChoice.USDT) {
+            tokenAddress = USDT;
+            LoanAccountUSDTBalances[msg.sender] += amount;
+        }
+
+        IERC20 token = IERC20(tokenAddress);
         require(token.transferFrom(msg.sender, address(this), amount), "Transfer failed");
-        
-        providerBalance[msg.sender] += amount;
-        
-        emit Deposit(msg.sender, amount, block.timestamp);
+
+        emit Deposit(msg.sender, amount, tokenAddress, block.timestamp);
     }
 
 
-    function withdrawFromLoan(uint256 amount) external {
-        IERC20 token = IERC20(mockUSDT);
-        
-        require(providerBalance[msg.sender] >= amount, "Insufficient balance");
-        
-        providerBalance[msg.sender] -= amount;
-        
-        require(token.transfer(msg.sender, amount), "Transfer failed");
-        
-        emit YieldWithdrawn(msg.sender, amount, block.timestamp);
+
+function withdrawFromLoan(uint256 amount, TokenChoice _choice) external {
+    address tokenAddress;
+  
+    if (_choice == TokenChoice.dyveToken) {
+        require(LoanAccountDyveBalances[msg.sender] >= amount, "Insufficient Dyve token balance");
+        LoanAccountDyveBalances[msg.sender] -= amount; 
+        tokenAddress = dyveToken;
+    } 
+    
+    else if (_choice == TokenChoice.USDT) {
+        require(LoanAccountUSDTBalances[msg.sender] >= amount, "Insufficient USDT balance");
+        LoanAccountUSDTBalances[msg.sender] -= amount; 
+        tokenAddress = USDT;
     }
 
+    IERC20 token = IERC20(tokenAddress);
+    require(token.balanceOf(address(this)) >= amount, "Contract has insufficient balance");
+    require(token.transfer(msg.sender, amount), "Transfer failed");
 
-    function supplyLoanPool(uint256 amount) external {
-        require(amount > providerBalance[msg.sender], "Insufficient fund");
+    emit LoanWithdrawn(msg.sender, amount, tokenAddress, block.timestamp);
+}
 
-        IERC20 token = IERC20(mockUSDT);
 
-        require(token.transferFrom(msg.sender, address(this), amount), "Transfer failed");
+
+    function supplyLoanPool(uint256 amount, TokenChoice _choice) external {
+        address tokenAddress;
+
+
+        if (_choice == TokenChoice.dyveToken) {
+            require(LoanAccountDyveBalances[msg.sender] >= amount, "Insufficient Dyve balance");
+            LoanAccountDyveBalances[msg.sender] -= amount;
+            tokenAddress = dyveToken;
+        } 
+        
+        else if (_choice == TokenChoice.USDT) {
+            require(LoanAccountUSDTBalances[msg.sender] >= amount, "Insufficient USDT balance");
+            LoanAccountUSDTBalances[msg.sender] -= amount;
+            tokenAddress = USDT;
+        }
+
+        IERC20 token = IERC20(tokenAddress);
+        require(token.balanceOf(msg.sender) >= amount, "Insufficient wallet balance");
 
         uint256 loanGiverId = nextLoanGiverId++;
         providers[msg.sender] = LoanProvider({
@@ -113,68 +164,78 @@ contract MicroLoan {
         numberOfProviders[loanGiverId] = providers[msg.sender];
         providerBalance[msg.sender] += amount;
 
-        emit LoanSupplied(msg.sender, amount, block.timestamp);
+        emit LoanSupplied(msg.sender, amount, tokenAddress, block.timestamp);
     }
 
-    // deposit collateral when user wants to request for loan
-    function depositCollateral() external {
-        // Fetch the borrower's ID from the mapping
+
+
+
+    function depositCollateral() internal {
+        
         uint256[] memory borrowerIdsList = borrowerIds[msg.sender];
         require(borrowerIdsList.length > 0, "No active loans found");
 
-        // Assuming the borrower has only one active loan
+        // A borrower can only have one active loan at a time
         uint256 borrowerId = borrowerIdsList[0];
-        Borrower memory borrower = borrowers[borrowerId];
+        Borrower storage borrower = borrowers[borrowerId];
 
-        // Calculate required collateral as 75% of the borrower's outstanding balance
+        // Calculate required collateral as 150% of the borrower's balance
         uint256 amountBorrowed = borrower.amountBorrowed;
-        uint256 collateralAmount = (amountBorrowed * 75) / 100; // 75% of the loan amount
+        uint256 collateralAmount = (amountBorrowed * 150) / 100; // 150% of the loan amount
 
         require(collateralAmount > 0, "Collateral must be greater than 0");
         require(borrower.collateralAmount == 0, "Collateral already deposited");
 
-        // Transfer the calculated collateral amount from the borrower to the contract
-        IERC20 token = IERC20(mockUSDT);
+        IERC20 token = IERC20(dyveToken);
+
         require(token.transferFrom(msg.sender, address(this), collateralAmount), "Transfer failed");
 
-        // Update borrower's collateral amount
         borrower.collateralAmount = collateralAmount;
 
         emit CollateralDeposited(borrowerId, msg.sender, collateralAmount, block.timestamp);
     }
 
-    function borrow(uint256 amount, uint256 paybackTime) external {
-        
-        IERC20 token = IERC20(mockUSDT);
 
-        uint256 collateralAmount = (amount * 75) / 100; // 75% of the loan amount
+function requestLoan(uint256 amount, uint256 paybackTime) external {
+    IERC20 token = IERC20(mockUSDT);
 
-        require(token.balanceOf(address(this)) - amount >= minReserve, "Not enough liquidity");
-        require(collateralAmount > 0, "Collateral must be greater than 0");
-        require(amount <= maxBorrowAmount, "Amount exceeds borrowing limit");
+    uint256 collateralAmount = (amount * 150) / 100; // 150% of the loan amount
 
-        uint256 borrowerId = nextBorrowerId++;
-        
-        borrowers[borrowerId] = Borrower({
-            borrowerId: borrowerId,
-            borrowerAddress: msg.sender,
-            amountBorrowed: amount,
-            collateralAmount: collateralAmount,
-            timeBorrowed: block.timestamp,
-            paybackTime: paybackTime,
-            ltvRatio: (collateralAmount * 100) / amount,
-            amountRepaid: 0
-        });
+    require(token.balanceOf(address(this)) - amount >= minReserve, "Not enough liquidity");
+    require(collateralAmount > 0, "Collateral must be greater than 0");
+    require(amount <= maxBorrowAmount, "Amount exceeds borrowing limit");
 
-        borrowerBalance[borrowerId] += amount;
-        borrowerIds[msg.sender].push(borrowerId);
-        hasBorrowed[msg.sender] = true;
-
-        require(token.transfer(msg.sender, amount), "Transfer failed");
-
-        emit LoanBorrowed(borrowerId, msg.sender, amount, collateralAmount, paybackTime, block.timestamp);
-        
+    // Check if the borrower has an active loan
+    uint256[] memory borrowerIdsList = borrowerIds[msg.sender];
+    
+    if (borrowerIdsList.length == 0 || borrowers[borrowerIdsList[0]].collateralAmount == 0) {
+        // If user has no active loan or no collateral, calls the depositCollateral function
+        depositCollateral();
     }
+
+    // Proceed with loan request after collateral has been deposited
+    uint256 borrowerId = nextBorrowerId++;
+    
+    borrowers[borrowerId] = Borrower({
+        borrowerId: borrowerId,
+        borrowerAddress: msg.sender,
+        amountBorrowed: amount,
+        collateralAmount: collateralAmount,
+        timeBorrowed: block.timestamp,
+        paybackTime: paybackTime,
+        ltvRatio: (collateralAmount * 100) / amount,
+        amountRepaid: 0
+    });
+
+    borrowerBalance[borrowerId] += amount;
+    borrowerIds[msg.sender].push(borrowerId);
+    hasBorrowed[msg.sender] = true;
+
+    require(token.transfer(msg.sender, amount), "Transfer failed");
+
+    emit LoanBorrowed(borrowerId, msg.sender, amount, collateralAmount, paybackTime, block.timestamp);
+}
+
 
 
     function calculateYield(LoanProvider storage provider) internal returns (uint256) {
@@ -217,11 +278,11 @@ contract MicroLoan {
         borrowerBalance[borrowerId] -= outstandingAmount;
 
         if (borrowerBalance[borrowerId] == 0) {
-            // Refund collateral
+
             uint256 collateralToRefund = borrower.collateralAmount;
+
             require(token.transfer(msg.sender, collateralToRefund), "Transfer failed");
 
-            // Clear borrower record
             borrower.collateralAmount = 0;
             hasBorrowed[msg.sender] = false;
         }
@@ -229,37 +290,34 @@ contract MicroLoan {
         emit LoanRepaid(borrowerId, msg.sender, outstandingAmount, borrowerBalance[borrowerId], block.timestamp);
     }
 
-    // liquidate collateral from mockUSDT to DYV
+
     function liquidateCollateral() external {
-        // Retrieve borrower IDs for the borrower address
+
         address borrowerAddress = msg.sender;
         uint256[] memory borrowerIdsList = borrowerIds[borrowerAddress];
+
         require(borrowerIdsList.length > 0, "No active loans found");
 
-        // Assuming the borrower has only one active loan
         uint256 borrowerId = borrowerIdsList[0];
         Borrower memory borrower = borrowers[borrowerId];
 
         require(block.timestamp > borrower.paybackTime, "Loan is not overdue yet");
         require(borrower.amountBorrowed > 0, "No loan to liquidate");
 
-        // Transfer collateral to the loan pool
-        IERC20 token = IERC20(mockUSDT);
+        IERC20 token = IERC20(dyveToken);
         uint256 collateralToTransfer = borrower.collateralAmount;
 
-        require(token.transfer(owner, collateralToTransfer), "Transfer to liquidity pool failed"); // Changed to use `owner` address
+        require(token.transfer(owner, collateralToTransfer), "Transfer to liquidity pool failed"); 
 
-        // Calculate amount to pay back into the pool including penalty
         uint256 penaltyPercentage = 10; 
         uint256 amountToPayPool = borrower.amountBorrowed + (borrower.amountBorrowed * penaltyPercentage / 100);
 
-        // Check if enough funds are available in the contract
         require(token.balanceOf(address(this)) >= amountToPayPool, "Not enough liquidity to cover penalty");
 
-        // Transfer loan amount + penalty to the liquidity pool
-        require(token.transfer(owner, amountToPayPool), "Transfer to liquidity pool failed"); // Changed to use `owner` address
+        // Initiates Transfer loan amount + penalty to the liquidity pool
+        require(token.transfer(owner, amountToPayPool), "Transfer to liquidity pool failed");
 
-        // On complete loan payment, reset the borrower's record
+        // On complete loan payment, borrower's record is reset
         borrower.amountBorrowed = 0;
         borrower.collateralAmount = 0;
         borrower.amountRepaid = 0;
@@ -269,22 +327,25 @@ contract MicroLoan {
          emit LoanLiquidated(borrowerId, borrowerAddress, collateralToTransfer, amountToPayPool, block.timestamp);
     }
 
+    // Loan provider withdraws from pool
     function withdrawProviderFunds() external {
         LoanProvider storage provider = providers[msg.sender];
         uint256 yieldToWithdraw = provider.yieldAccrued;
 
-        uint256 amountToWithdraw = provider.amountProvided - provider.amountWithdrawn + yieldToWithdraw;
-        require(amountToWithdraw > 0, "No funds to withdraw");
+        uint256 totalAvailableToWithdraw = provider.amountProvided - provider.amountWithdrawn + yieldToWithdraw;
+        require(totalAvailableToWithdraw > 0, "No funds available to withdraw");
 
         IERC20 token = IERC20(mockUSDT);
-        require(token.transfer(msg.sender, amountToWithdraw), "Transfer failed");
+        require(token.balanceOf(address(this)) >= totalAvailableToWithdraw, "Insufficient contract balance");
 
-        provider.amountWithdrawn += amountToWithdraw;
+        require(token.transfer(msg.sender, totalAvailableToWithdraw), "Transfer failed");
+
+        provider.amountWithdrawn += (totalAvailableToWithdraw - yieldToWithdraw);
         provider.yieldAccrued = 0; 
 
-        emit YieldWithdrawn(msg.sender, amountToWithdraw, block.timestamp);
+        emit YieldWithdrawn(msg.sender, totalAvailableToWithdraw, yieldToWithdraw, block.timestamp);
     }
-    
+
 
     function setBorrowersInterest(uint256 rate) external onlyOwner {
         borrowersInterestRate = rate;
@@ -308,8 +369,10 @@ contract MicroLoan {
     }
 
     function getLoanPoolBalance() external view onlyOwner returns (uint256) {
-        IERC20 token = IERC20(mockUSDT);
+        IERC20 token = IERC20(dyveToken);
         return token.balanceOf(address(this));
     }
+
+    // implement loan pool status
 
 }
