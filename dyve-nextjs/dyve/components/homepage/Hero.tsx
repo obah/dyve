@@ -1,6 +1,6 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 const Hero = () => {
   return (
@@ -17,7 +17,12 @@ const Hero = () => {
             one place.
           </p>
 
-          <Button onClick={() => {}}>Get Started For Free</Button>
+          <Link
+            href={"/dashboard"}
+            className={`${buttonVariants({ variant: "default" })} w-1/3`}
+          >
+            Get Started For Free
+          </Link>
         </div>
 
         <div className="w-1/3">

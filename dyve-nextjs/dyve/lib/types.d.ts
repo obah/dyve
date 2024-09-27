@@ -22,3 +22,10 @@ export interface INavbar {
   href: string;
   title: string;
 }
+
+export interface IFeatureItem {
+  title: string;
+  img: string;
+  desc: string;
+  href: string;
+}
