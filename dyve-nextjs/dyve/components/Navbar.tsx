@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
+import { Button } from "./ui/button";
 import { ConnectionModal } from "./auth/connection-modal";
+import Image from "next/image";
+import Link from "next/link";
+import { NavItems } from "@/lib/CONSTANTS";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Globe } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
@@ -42,11 +45,6 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const activeLink =
-    "bg-purple-3 rounded-full px-10 py-2 text-white font-medium text-sm";
-  const inActiveLink =
-    "bg-transparent px-4 py-2 rounded-full hover:bg-[#221D2C] text-white font-medium text-sm";
-
   return (
     <div
       className={`fixed left-0 top-0 z-50 hidden w-full flex-row items-center justify-between bg-[#0F0E10] px-16 pb-2 pt-5 backdrop-blur transition-transform duration-300 ease-in-out supports-[backdrop-filter]:bg-[#0f0e10c4] ${
@@ -56,51 +54,29 @@ const Navbar = () => {
       <div className="flex items-center justify-between gap-9">
         <Image src="/assets/logo.png" width={90} height={30} alt="Dyve logo" />
         <header className="flex w-full items-center justify-between gap-4 rounded-full bg-black-background-2 px-3 py-2">
-          <Link
-            href={"/"}
-            className={pathname === "/" ? activeLink : inActiveLink}
-          >
-            Home
-          </Link>
-
-          <Link
-            href={"/about"}
-            className={pathname === "/about" ? activeLink : inActiveLink}
-          >
-            About
-          </Link>
-
-          <Link
-            href={"/dashboard"}
-            className={pathname === "/dashboard" ? activeLink : inActiveLink}
-          >
-            Dashboard
-          </Link>
-
-          <Link
-            href={"/loan"}
-            className={pathname === "/loan" ? activeLink : inActiveLink}
-          >
-            Micro Loan
-          </Link>
-
-          <Link
-            href={"/savings"}
-            className={pathname === "/savings" ? activeLink : inActiveLink}
-          >
-            Savings
-          </Link>
-
-          <Link
-            href={"/academy"}
-            className={pathname === "/academy" ? activeLink : inActiveLink}
-          >
-            Academy
-          </Link>
+          {NavItems.map((item) => (
+            <Link
+              href={item.href}
+              key={item.href}
+              className={`rounded-full py-2 text-sm font-medium capitalize text-white ${pathname === item.href ? "bg-purple-3 px-10" : "bg-transparent px-4 hover:bg-[#221D2C]"}`}
+            >
+              {item.title}
+            </Link>
+          ))}
         </header>
       </div>
 
-      <div>
+      <div className="flex items-center gap-2">
+        <Button
+          variant={"outline"}
+          size={"sm"}
+          className="flex items-center gap-1 border-transparent"
+        >
+          <Globe className="h-[18px] w-[18px]" />
+          EN
+          <ChevronDown className="h-4 w-4" />
+        </Button>
+
         <ConnectionModal />
       </div>
     </div>

@@ -1,6 +1,6 @@
-import Features from "@/components/Features";
-import Hero from "@/components/Hero";
-import QuickGuide from "@/components/QuickGuide";
+import Features from "@/components/homepage/Features";
+import Hero from "@/components/homepage/Hero";
+import QuickGuide from "@/components/homepage/QuickGuide";
 
 export default function Page() {
   return (

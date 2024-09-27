@@ -1,4 +1,4 @@
-import FeaturesCard from "../FeaturesCard";
+import FeaturesCard from "../homepage/FeaturesCard";
 
 const Why = () => {
   const listA: any = [

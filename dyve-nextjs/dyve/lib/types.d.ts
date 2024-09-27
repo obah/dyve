@@ -17,3 +17,8 @@ export interface TransactionsData {
 export type TPaymentStatus = "failed" | "pending" | "paid";
 
 export type Variant = "default" | "destructive" | "secondary";
+
+export interface INavbar {
+  href: string;
+  title: string;
+}
