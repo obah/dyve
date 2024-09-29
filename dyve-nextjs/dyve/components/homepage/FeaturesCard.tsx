@@ -12,7 +12,7 @@ const FeaturesCard = ({ data, idx }: { data: IFeatureItem; idx: number }) => {
 
   return (
     <div
-      className={`${idx === 0 || idx === 3 ? "col-span-4" : "col-span-6"} row-span-1 flex h-[122px] flex-row rounded-[36px] border border-r-0 border-[#00000033] bg-gradient-to-r from-purple-1/10 p-8 shadow-lg md:h-[244px]`}
+      className={`${idx === 0 || idx === 3 ? "col-span-4" : "col-span-6"} row-span-1 flex h-[122px] flex-row rounded-[36px] border border-r-0 border-[#00000033] bg-gradient-to-r from-purple-1/10 p-8 md:h-[244px]`}
     >
       <div className="flex flex-col justify-between">
         <Button

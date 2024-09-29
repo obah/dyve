@@ -4,7 +4,7 @@ import { IFeatureItem } from "@/lib/types";
 
 const Features = () => {
   return (
-    <div className="flex w-full items-center justify-center bg-background-2 p-8 pt-20">
+    <div className="flex w-full items-center justify-center bg-background-2 px-8 py-20">
       <div className="lg:w-11/12">
         <div className="mb-[74px] w-1/3">
           <p className="mb-2 text-xl font-light text-purple-1">
